@@ -8,6 +8,11 @@ import * as session from 'express-session';
 import { corsConfig, sessionConfig } from './utils/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
+
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 async function bootstrap() {

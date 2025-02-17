@@ -1,5 +1,13 @@
 import * as bcrypt from 'bcryptjs';
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+console.log('Cloudinary Name:', process.env.CLOUDINARY_NAME);
+// Optionally log others (be cautious not to expose sensitive info)
+// console.log('Cloudinary API Key:', process.env.CLOUDINARY_API_KEY);
+
+
 export const encryptPassword = async (password: string) => {
   const salt = await bcrypt.genSalt(10);
 

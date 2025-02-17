@@ -11,3 +11,11 @@ export const CloudinaryProvider = {
     });
   },
 };
+
+console.log('Cloudinary Config:', {
+  name: process.env.CLOUDINARY_NAME,
+  key: process.env.CLOUDINARY_API_KEY ? 'Loaded' : 'Not Loaded',
+  secret: process.env.CLOUDINARY_API_SECRET ? 'Loaded' : 'Not Loaded',
+});
+
+
