@@ -6,7 +6,7 @@ import { AppModule } from './app/app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as session from 'express-session';
 import { corsConfig, sessionConfig } from './utils/config';
-import { NestExpressApplication } from '@nestjs/platform-express';
+import { NestExpressApplication } from '@nestjs/platform-express/interfaces';
 
 
 import * as dotenv from 'dotenv';
