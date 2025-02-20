@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { connectDB } from '../utils/config';
 import { ProductsModule } from '../products/products.module';
+import { SliderModule } from '../slider/slider.module';
 import { UsersModule } from 'src/users/users.module';
 import { CommandModule } from 'nestjs-command';
 import { CartModule } from 'src/cart/cart.module';
@@ -25,6 +26,7 @@ import { AppService } from './services/app.service';
     CommandModule,
     ProductsModule,
     UsersModule,
+    SliderModule,
     CartModule,
     OrderModule,
     CloudinaryModule,
