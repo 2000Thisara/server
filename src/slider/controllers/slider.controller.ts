@@ -9,30 +9,13 @@ export class SliderController {
   constructor(private readonly sliderService: SliderService) {}
 
   @Post('upload')
-  @UseInterceptors(
-    FileInterceptor('image', {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, cb) => {
-          const uniqueName = `${Date.now()}${extname(file.originalname)}`;
-          cb(null, uniqueName);
-        },
-      }),
-    }),
-  )
   async uploadSliderItem(
-    @Body() body: { name: string; description: string },
-    @UploadedFile() file: Express.Multer.File,
+    @Body() body: { name: string; description: string; image: string } // Now, image is just a string
   ) {
-    if (!file) {
-      return { message: 'Image is required!' };
-    }
-
-    const imageUrl = `/uploads/${file.filename}`;
     const slider = await this.sliderService.uploadSliderItem({
       name: body.name,
       description: body.description,
-      imageUrl,
+      image: body.image, // Directly store the image URL
     });
 
     return { message: 'Slider uploaded successfully', slider };
@@ -40,6 +23,6 @@ export class SliderController {
 
   @Get()
   async getAllSliders() {
-    return this.sliderService.getAllSliders();
+    return this.sliderService.fetchSliders();
   }
 }
