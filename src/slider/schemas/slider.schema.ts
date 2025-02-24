@@ -12,7 +12,7 @@ export class Slider {
   description: string;
 
   @Prop({ required: true })
-  imageUrl: string; // Store the image URL/path
+  image: string; // Store the image URL/path
 }
 
 export const SliderSchema = SchemaFactory.createForClass(Slider);
