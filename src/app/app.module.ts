@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { connectDB } from '../utils/config';
 import { ProductsModule } from '../products/products.module';
 import { SliderModule } from '../slider/slider.module';
+import { FooterModule } from '../footer/footer.module';
 import { UsersModule } from 'src/users/users.module';
 import { CommandModule } from 'nestjs-command';
 import { CartModule } from 'src/cart/cart.module';
@@ -27,6 +28,7 @@ import { AppService } from './services/app.service';
     ProductsModule,
     UsersModule,
     SliderModule,
+    FooterModule,
     CartModule,
     OrderModule,
     CloudinaryModule,

@@ -1,31 +1,29 @@
 import { Controller, Post, Get, Body, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
-import { SliderService } from '../services/slider.service';
+import { FooterService } from '../services/footer.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import { use } from 'passport';
 import { AdminGuard } from 'src/guards/admin.guard';
 
-@Controller('slider')
-export class SliderController {
-  constructor(private readonly sliderService: SliderService) {}
-
+@Controller('footer')
+export class FooterController {
+  constructor(private readonly footerService: FooterService) {}
 
   @Post('upload')
-  async uploadSliderItem(
+  async updateFooter(
     @Body() body: { name: string; description: string; image: string } // Now, image is just a string
   ) {
-    const slider = await this.sliderService.uploadSliderItem({
+    const slider = await this.footerService.updateFooter({
       name: body.name,
       description: body.description,
       image: body.image, // Directly store the image URL
     });
 
-    return { message: 'Slider uploaded successfully', slider };
+    return { message: 'Footer Updated Successfully', slider };
   }
 
   @Get()
   async getAllSliders() {
-    return this.sliderService.fetchSliders();
+    return this.footerService.fetchFooter();
   }
 }
