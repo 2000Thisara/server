@@ -1,29 +1,29 @@
 import { Controller, Post, Get, Body, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
-import { FooterService } from '../services/footer.service';
+import { HeaderService } from '../services/header.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { AdminGuard } from 'src/guards/admin.guard';
 
-@Controller('footer')
-export class FooterController {
-  constructor(private readonly footerService: FooterService) {}
+@Controller('header')
+export class HeaderController {
+  constructor(private readonly headerService: HeaderService) {}
 
   @Post('upload')
-  async updateFooter(
+  async updateHeader(
     @Body() body: { name: string; description: string; image: string } // Now, image is just a string
   ) {
-    const footer = await this.footerService.updateFooter({
+    const header = await this.headerService.updateHeader({
       name: body.name,
       description: body.description,
       image: body.image, // Directly store the image URL
     });
 
-    return { message: 'Footer Updated Successfully', footer };
+    return { message: 'Header Updated Successfully', header };
   }
 
   @Get()
-  async getAllFooters() {
-    return this.footerService.fetchFooter();
+  async getAllHeaders() {
+    return this.headerService.fetchHeader();
   }
 }
