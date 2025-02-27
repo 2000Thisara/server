@@ -9,7 +9,7 @@ export class Header {
   name: string;
 
   @Prop({ required: true })
-  description: string;
+  color: string;
 
   @Prop({ required: true })
   image: string; // Store the image URL/path

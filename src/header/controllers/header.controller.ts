@@ -11,11 +11,11 @@ export class HeaderController {
 
   @Post('upload')
   async updateHeader(
-    @Body() body: { name: string; description: string; image: string } // Now, image is just a string
+    @Body() body: { name: string; color: string; image: string } // Now, image is just a string
   ) {
     const header = await this.headerService.updateHeader({
       name: body.name,
-      description: body.description,
+      color: body.color,
       image: body.image, // Directly store the image URL
     });
 
