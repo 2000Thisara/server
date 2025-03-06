@@ -11,12 +11,17 @@ export class FooterController {
 
   @Post('upload')
   async updateFooter(
-    @Body() body: { name: string; description: string; image: string } // Now, image is just a string
+    @Body() body: { contactNumber: string; email: string; aboutUs: string; fbLink: string; whatsappLink: string; instaLink: string; ytLink: string; ttLink: string;  } // Now, image is just a string
   ) {
     const footer = await this.footerService.updateFooter({
-      name: body.name,
-      description: body.description,
-      image: body.image, // Directly store the image URL
+      contactNumber: body.contactNumber,
+      email: body.email,
+      aboutUs: body.aboutUs,
+      fbLink: body.fbLink,
+      whatsappLink: body.whatsappLink,
+      instaLink: body.instaLink,
+      ytLink: body.ytLink,
+      ttLink: body.ttLink, 
     });
 
     return { message: 'Footer Updated Successfully', footer };
