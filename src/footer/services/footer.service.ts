@@ -9,21 +9,19 @@ export class FooterService {
     @InjectModel(Footer.name) private footerModel: Model<FooterDocument>,
   ) {}
 
-  async updateFooter(data: { name: string; description: string; image: string }) {
-    // Find the existing footer document
-    const existingFooter = await this.footerModel.findById("67be06d948daefa59a81ac83");
+  async updateFooter(data: Partial<Footer>) {
+    let footer = await this.footerModel.findOne().exec();
   
-    if (!existingFooter) {
-      throw new Error("Footer not found");
+    if (!footer) {
+      // If no footer exists, create a new one
+      footer = new this.footerModel(data);
+      return footer.save();
     }
   
-    // Update the existing footer with new data
-    existingFooter.name = data.name;
-    existingFooter.description = data.description;
-    existingFooter.image = data.image;
-  
-    return await existingFooter.save(); // Save the changes
+    // Otherwise, update the existing footer
+    return this.footerModel.findOneAndUpdate({}, data, { new: true }).exec();
   }
+  
   
 
   async fetchFooter() {
