@@ -348,7 +348,7 @@
     "@smithy/types" "^4.1.0"
     tslib "^2.6.2"
 
-"@aws-sdk/credential-providers@^3.186.0":
+"@aws-sdk/credential-providers@^3.186.0", "@aws-sdk/credential-providers@^3.188.0":
   version "3.744.0"
   resolved "https://registry.npmjs.org/@aws-sdk/credential-providers/-/credential-providers-3.744.0.tgz"
   integrity sha512-8vXnKA/TklSx6HdF88RVohtsvYNuGP9nm5RTCSGbWVR7+xEU/Eh15B+EKoGasCjZW7/9GxnSULp0DN1msCR23A==
@@ -623,19 +623,19 @@
   integrity sha512-e/zv1co8pp55dNdEcCynfj9X7nyUKUXoUEwfXqaZt0omVOmDe9oOTdKStH4GmAw6zxMFs50ZayuMfHDKlO7Tfw==
 
 "@babel/helpers@^7.26.7":
-  version "7.26.7"
-  resolved "https://registry.npmjs.org/@babel/helpers/-/helpers-7.26.7.tgz"
-  integrity sha512-8NHiL98vsi0mbPQmYAGWwfcFaOy4j2HY49fXJCfuDcdE7fMIsH9a7GdaeXpIBsbT7307WU8KCMp5pUVDNL4f9A==
+  version "7.27.0"
+  resolved "https://registry.npmjs.org/@babel/helpers/-/helpers-7.27.0.tgz"
+  integrity sha512-U5eyP/CTFPuNE3qk+WZMxFkp/4zUzdceQlfzf7DdGdhp+Fezd7HD+i8Y24ZuTMKX3wQBld449jijbGq6OdGNQg==
   dependencies:
-    "@babel/template" "^7.25.9"
-    "@babel/types" "^7.26.7"
+    "@babel/template" "^7.27.0"
+    "@babel/types" "^7.27.0"
 
-"@babel/parser@^7.1.0", "@babel/parser@^7.14.7", "@babel/parser@^7.20.7", "@babel/parser@^7.26.8":
-  version "7.26.8"
-  resolved "https://registry.npmjs.org/@babel/parser/-/parser-7.26.8.tgz"
-  integrity sha512-TZIQ25pkSoaKEYYaHbbxkfL36GNsQ6iFiBbeuzAkLnXayKR1yP1zFe+NxuZWWsUyvt8icPU9CCq0sgWGXR1GEw==
+"@babel/parser@^7.1.0", "@babel/parser@^7.14.7", "@babel/parser@^7.20.7", "@babel/parser@^7.26.8", "@babel/parser@^7.27.0":
+  version "7.27.0"
+  resolved "https://registry.npmjs.org/@babel/parser/-/parser-7.27.0.tgz"
+  integrity sha512-iaepho73/2Pz7w2eMS0Q5f83+0RKI7i4xmiYeBmDzfRVbQtTOG7Ts0S4HzJVsTMGI9keU8rNfuZr8DKfSt7Yyg==
   dependencies:
-    "@babel/types" "^7.26.8"
+    "@babel/types" "^7.27.0"
 
 "@babel/plugin-syntax-async-generators@^7.8.4":
   version "7.8.4"
@@ -749,14 +749,14 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.25.9"
 
-"@babel/template@^7.25.9", "@babel/template@^7.26.8", "@babel/template@^7.3.3":
-  version "7.26.8"
-  resolved "https://registry.npmjs.org/@babel/template/-/template-7.26.8.tgz"
-  integrity sha512-iNKaX3ZebKIsCvJ+0jd6embf+Aulaa3vNBqZ41kM7iTWjx5qzWKXGHiJUW3+nTpQ18SG11hdF8OAzKrpXkb96Q==
+"@babel/template@^7.26.8", "@babel/template@^7.27.0", "@babel/template@^7.3.3":
+  version "7.27.0"
+  resolved "https://registry.npmjs.org/@babel/template/-/template-7.27.0.tgz"
+  integrity sha512-2ncevenBqXI6qRMukPlXwHKHchC7RyMuu4xv5JBXRfOGVcTy1mXCD12qrp7Jsoxll1EV3+9sE4GugBVRjT2jFA==
   dependencies:
     "@babel/code-frame" "^7.26.2"
-    "@babel/parser" "^7.26.8"
-    "@babel/types" "^7.26.8"
+    "@babel/parser" "^7.27.0"
+    "@babel/types" "^7.27.0"
 
 "@babel/traverse@^7.25.9", "@babel/traverse@^7.26.8", "@babel/traverse@^7.7.2":
   version "7.26.8"
@@ -771,10 +771,10 @@
     debug "^4.3.1"
     globals "^11.1.0"
 
-"@babel/types@^7.0.0", "@babel/types@^7.20.7", "@babel/types@^7.25.9", "@babel/types@^7.26.7", "@babel/types@^7.26.8", "@babel/types@^7.3.3":
-  version "7.26.8"
-  resolved "https://registry.npmjs.org/@babel/types/-/types-7.26.8.tgz"
-  integrity sha512-eUuWapzEGWFEpHFxgEaBG8e3n6S8L3MSu0oda755rOfabWPnh0Our1AozNFVUxGFIhbKgd1ksprsoDGMinTOTA==
+"@babel/types@^7.0.0", "@babel/types@^7.20.7", "@babel/types@^7.25.9", "@babel/types@^7.26.8", "@babel/types@^7.27.0", "@babel/types@^7.3.3":
+  version "7.27.0"
+  resolved "https://registry.npmjs.org/@babel/types/-/types-7.27.0.tgz"
+  integrity sha512-H45s8fVLYjbhFH62dIJ3WtmJ6RSPt/3DRO0ZcT2SUiYiQyz3BLVb9ADEnLl91m74aQPS3AzzeajZHYOalWe3bg==
   dependencies:
     "@babel/helper-string-parser" "^7.25.9"
     "@babel/helper-validator-identifier" "^7.25.9"
@@ -1337,7 +1337,7 @@
   resolved "https://registry.npmjs.org/@lukeed/csprng/-/csprng-1.1.0.tgz"
   integrity sha512-Z7C/xXCiGWsg0KuKsHTKJxbWhpI3Vs5GwLfOean7MGyVFGqdRgBbAjOCh6u4bbjPc/8MJ2pZmK/0DLdCbivLDA==
 
-"@mongodb-js/saslprep@^1.1.0":
+"@mongodb-js/saslprep@^1.1.0", "@mongodb-js/saslprep@^1.1.9":
   version "1.2.0"
   resolved "https://registry.npmjs.org/@mongodb-js/saslprep/-/saslprep-1.2.0.tgz"
   integrity sha512-+ywrb0AqkfaYuhHs6LxKWgqbh3I72EpEgESCw37o+9qPx9WTCkgDm2B+eMrwehGtHBWHFU4GXvnSCNiFhhausg==
@@ -1369,10 +1369,10 @@
     webpack "5.97.1"
     webpack-node-externals "3.0.0"
 
-"@nestjs/common@^10.0.0 || ^11.0.0", "@nestjs/common@^11.0.0", "@nestjs/common@^11.0.9", "@nestjs/common@^6.0.0 || ^7.0.0 || ^8.0.0", "@nestjs/common@^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0", "@nestjs/common@^8.0.0 || ^9.0.0", "@nestjs/common@^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0":
-  version "11.0.9"
-  resolved "https://registry.npmjs.org/@nestjs/common/-/common-11.0.9.tgz"
-  integrity sha512-+SKMYQE7O55tJGQVibnAlR9sXRBCF/8gM1cILdLT7cLj7+51NYD7eAHuAcGYiQIyXsTehZoO7C+B7S3ibNi3aw==
+"@nestjs/common@^10.0.0 || ^11.0.0", "@nestjs/common@^11.0.0", "@nestjs/common@^11.0.9", "@nestjs/common@^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0", "@nestjs/common@^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0":
+  version "11.0.13"
+  resolved "https://registry.npmjs.org/@nestjs/common/-/common-11.0.13.tgz"
+  integrity sha512-cXqXJPQTcJIYqT8GtBYqjYY9sklCBqp/rh9z1R40E60gWnsU598YIQWkojSFRI9G7lT/+uF+jqSrg/CMPBk7QQ==
   dependencies:
     iterare "1.2.1"
     tslib "2.8.1"
@@ -1387,7 +1387,7 @@
     dotenv-expand "12.0.1"
     lodash "4.17.21"
 
-"@nestjs/core@^11.0.0", "@nestjs/core@^11.0.9", "@nestjs/core@^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0", "@nestjs/core@^8.0.0 || ^9.0.0":
+"@nestjs/core@^10.0.0 || ^11.0.0", "@nestjs/core@^11.0.0", "@nestjs/core@^11.0.9", "@nestjs/core@^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0":
   version "11.0.9"
   resolved "https://registry.npmjs.org/@nestjs/core/-/core-11.0.9.tgz"
   integrity sha512-w32ZF1acSnidiRERGRC/Ki7eSrnTdP7twRnjy15Qnmij3oYRCdgX5aZvbUNv17A7bn9S22p+wMNcpHxqwUiOsQ==
@@ -1407,15 +1407,15 @@
     "@types/jsonwebtoken" "9.0.7"
     jsonwebtoken "9.0.2"
 
-"@nestjs/mongoose@^9.0.2":
-  version "9.2.2"
-  resolved "https://registry.npmjs.org/@nestjs/mongoose/-/mongoose-9.2.2.tgz"
-  integrity sha512-szNuSUCwwbQSSeiTh8+tZ9fHV4nuzHwBDROb0hX0s7crwY15TunCfwyKbB2XjqkEQWUAasDeCBuKOJSL9N6tTg==
+"@nestjs/mongoose@^11.0.1":
+  version "11.0.3"
+  resolved "https://registry.npmjs.org/@nestjs/mongoose/-/mongoose-11.0.3.tgz"
+  integrity sha512-tg7bbKD4MnNMPaiDLXK/JUyTNQxIn3rNnI+oYU1HorLpNiR2E8vPraWVvfptpIj+zferpT6LkrHMvtqvuIKNPw==
 
-"@nestjs/passport@^8.1.0":
-  version "8.2.2"
-  resolved "https://registry.npmjs.org/@nestjs/passport/-/passport-8.2.2.tgz"
-  integrity sha512-Ytbn8j7WZ4INmEntOpdJY1isTgdQqZkx5ADz8zsZ5wAp0t8tc5GF/A+GlXlmn9/yRPwZHSbmHpv7Qt2EIiNnrw==
+"@nestjs/passport@^11.0.5":
+  version "11.0.5"
+  resolved "https://registry.npmjs.org/@nestjs/passport/-/passport-11.0.5.tgz"
+  integrity sha512-ulQX6mbjlws92PIM15Naes4F4p2JoxGnIJuUsdXQPT+Oo2sqQmENEZXM7eYuimocfHnKlcfZOuyzbA33LwUlOQ==
 
 "@nestjs/platform-express@^11.0.0", "@nestjs/platform-express@^11.0.10":
   version "11.0.10"
@@ -2229,6 +2229,13 @@
   resolved "https://registry.npmjs.org/@types/webidl-conversions/-/webidl-conversions-7.0.3.tgz"
   integrity sha512-CiJJvcRtIgzadHCYXw7dqEnMNRjhGZlYK05Mj9OyktqV8uVT8fD2BFOB7S1uwBE3Kj2Z+4UyPmFw/Ixgw/LAlA==
 
+"@types/whatwg-url@^11.0.2":
+  version "11.0.5"
+  resolved "https://registry.npmjs.org/@types/whatwg-url/-/whatwg-url-11.0.5.tgz"
+  integrity sha512-coYR071JRaHa+xoEvvYqvnIHaVqaYrLPbsufM9BF63HkwI5Lgmy2QR8Q5K/lYDYo5AK82wOvSOS0UsLTpTG7uQ==
+  dependencies:
+    "@types/webidl-conversions" "*"
+
 "@types/whatwg-url@^8.2.1":
   version "8.2.2"
   resolved "https://registry.npmjs.org/@types/whatwg-url/-/whatwg-url-8.2.2.tgz"
@@ -2884,6 +2891,11 @@ bson@^4.7.2:
   integrity sha512-Ry9wCtIZ5kGqkJoi6aD8KjxFZEx78guTQDnpXWiNthsxzrxAK/i8E6pCHAIZTbaEFWcOCvbecMukfK7XUvyLpQ==
   dependencies:
     buffer "^5.6.0"
+
+bson@^6.10.3:
+  version "6.10.3"
+  resolved "https://registry.npmjs.org/bson/-/bson-6.10.3.tgz"
+  integrity sha512-MTxGsqgYTwfshYWTRdmZRC+M7FnG1b4y7RO7p2k3X24Wq0yv1m77Wsj0BzlPzd/IowgESfsruQCUToa7vbOpPQ==
 
 buffer-equal-constant-time@1.0.1:
   version "1.0.1"
@@ -5044,10 +5056,10 @@ jws@^3.2.2:
     jwa "^1.4.1"
     safe-buffer "^5.0.1"
 
-kareem@2.5.1:
-  version "2.5.1"
-  resolved "https://registry.npmjs.org/kareem/-/kareem-2.5.1.tgz"
-  integrity sha512-7jFxRVm+jD+rkq3kY0iZDJfsO2/t4BBPeEb2qKn2lR/9KhuksYk5hxzfRYWMPV8P/x2d0kHD306YyWLzjjH+uA==
+kareem@2.6.3:
+  version "2.6.3"
+  resolved "https://registry.npmjs.org/kareem/-/kareem-2.6.3.tgz"
+  integrity sha512-C3iHfuGUXK2u8/ipq9LfjFfXFxAZMQJJq7vLS45r3D9Y2xQ/m4S8zaR4zMLFWh9AsNPXmcFfUDhTEO8UIC/V6Q==
 
 keyv@^4.5.3:
   version "4.5.4"
@@ -5384,7 +5396,15 @@ mongodb-connection-string-url@^2.6.0:
     "@types/whatwg-url" "^8.2.1"
     whatwg-url "^11.0.0"
 
-mongodb@^4.1.0, mongodb@4.17.2, mongodb@4.x:
+mongodb-connection-string-url@^3.0.0:
+  version "3.0.2"
+  resolved "https://registry.npmjs.org/mongodb-connection-string-url/-/mongodb-connection-string-url-3.0.2.tgz"
+  integrity sha512-rMO7CGo/9BFwyZABcKAWL8UJwH/Kc2x0g72uhDWzG48URRax5TCIcJ7Rc3RZqffZzO/Gwff/jyKwCU9TN8gehA==
+  dependencies:
+    "@types/whatwg-url" "^11.0.2"
+    whatwg-url "^14.1.0 || ^13.0.0"
+
+mongodb@^4.1.0, mongodb@4.x:
   version "4.17.2"
   resolved "https://registry.npmjs.org/mongodb/-/mongodb-4.17.2.tgz"
   integrity sha512-mLV7SEiov2LHleRJPMPrK2PMyhXFZt2UQLC4VD4pnth3jMjYKHhtqfwwkkvS/NXuo/Fp3vbhaNcXrIDaLRb9Tg==
@@ -5396,18 +5416,27 @@ mongodb@^4.1.0, mongodb@4.17.2, mongodb@4.x:
     "@aws-sdk/credential-providers" "^3.186.0"
     "@mongodb-js/saslprep" "^1.1.0"
 
-mongoose@*, "mongoose@^6.0.2 || ^7.0.0", mongoose@^6.1.5:
-  version "6.13.8"
-  resolved "https://registry.npmjs.org/mongoose/-/mongoose-6.13.8.tgz"
-  integrity sha512-JHKco/533CyVrqCbyQsnqMpLn8ZCiKrPDTd2mvo2W7ygIvhygWjX2wj+RPjn6upZZgw0jC6U51RD7kUsyK8NBg==
+mongodb@~6.15.0:
+  version "6.15.0"
+  resolved "https://registry.npmjs.org/mongodb/-/mongodb-6.15.0.tgz"
+  integrity sha512-ifBhQ0rRzHDzqp9jAQP6OwHSH7dbYIQjD3SbJs9YYk9AikKEettW/9s/tbSFDTpXcRbF+u1aLrhHxDFaYtZpFQ==
   dependencies:
-    bson "^4.7.2"
-    kareem "2.5.1"
-    mongodb "4.17.2"
+    "@mongodb-js/saslprep" "^1.1.9"
+    bson "^6.10.3"
+    mongodb-connection-string-url "^3.0.0"
+
+mongoose@*, "mongoose@^7.0.0 || ^8.0.0", mongoose@^8.3.0:
+  version "8.13.2"
+  resolved "https://registry.npmjs.org/mongoose/-/mongoose-8.13.2.tgz"
+  integrity sha512-riCBqZmNkYBWjXpM3qWLDQw7QmTKsVZDPhLXFJqC87+OjocEVpvS3dA2BPPUiLAu+m0/QmEj5pSXKhH+/DgerQ==
+  dependencies:
+    bson "^6.10.3"
+    kareem "2.6.3"
+    mongodb "~6.15.0"
     mpath "0.9.0"
-    mquery "4.0.3"
+    mquery "5.0.0"
     ms "2.1.3"
-    sift "16.0.1"
+    sift "17.1.3"
 
 mpath@0.8.x:
   version "0.8.4"
@@ -5419,10 +5448,10 @@ mpath@0.9.0:
   resolved "https://registry.npmjs.org/mpath/-/mpath-0.9.0.tgz"
   integrity sha512-ikJRQTk8hw5DEoFVxHG1Gn9T/xcjtdnOKIU1JTmGjZZlg9LST2mBLmcX3/ICIbgJydT2GOc15RnNy5mHmzfSew==
 
-mquery@4.0.3:
-  version "4.0.3"
-  resolved "https://registry.npmjs.org/mquery/-/mquery-4.0.3.tgz"
-  integrity sha512-J5heI+P08I6VJ2Ky3+33IpCdAvlYGTSUjwTPxkAr8i8EoduPMBX2OY/wa3IKZIQl7MU4SbFk8ndgSKyB/cl1zA==
+mquery@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npmjs.org/mquery/-/mquery-5.0.0.tgz"
+  integrity sha512-iQMncpmEK8R8ncT8HJGsGc9Dsp8xcgYMVSbs5jgnm1lFHTZqMJTUWTDx1LBO8+mK3tPNZWFLBghQEIOULSTHZg==
   dependencies:
     debug "4.x"
 
@@ -5485,9 +5514,9 @@ neo-async@^2.6.2:
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
 nestjs-command@^3.1.1:
-  version "3.1.4"
-  resolved "https://registry.npmjs.org/nestjs-command/-/nestjs-command-3.1.4.tgz"
-  integrity sha512-0RJGR/Z1ePrf/tzvVJjM95U0sJQeMjFCFad1FqWy4ypQ+VxIG9fGkEf6i8zckQOYjHXBZoWG5YwX+/v4Nof/nA==
+  version "3.1.5"
+  resolved "https://registry.npmjs.org/nestjs-command/-/nestjs-command-3.1.5.tgz"
+  integrity sha512-s1oJNwKvgwivxjbzHAmggnaoPS/0mLaek2d9h93aEjECXHI8NLiJEXG4BTJo9Th61NgIRqkZcNGLXfG3LyrrqQ==
   dependencies:
     lodash.compact "^3.0.1"
     lodash.flattendeep "^4.4.0"
@@ -5684,7 +5713,7 @@ passport-strategy@^1.0.0, passport-strategy@1.x.x:
   resolved "https://registry.npmjs.org/passport-strategy/-/passport-strategy-1.0.0.tgz"
   integrity sha512-CB97UUvDKJde2V0KDWWB3lyf6PC3FaZP7YxZ2G8OAtn9p4HI9j9JLP9qjOGZFvyl8uwNT8qM+hGnz/n16NI7oA==
 
-"passport@^0.4.0 || ^0.5.0 || ^0.6.0", passport@^0.7.0:
+"passport@^0.5.0 || ^0.6.0 || ^0.7.0", passport@^0.7.0:
   version "0.7.0"
   resolved "https://registry.npmjs.org/passport/-/passport-0.7.0.tgz"
   integrity sha512-cPLl+qZpSc+ireUvt+IzqbED1cHHkDoVYMo30jbJIdOOjQ1MQYZBPiNvmi8UM6lJuOpTPXJGZQk0DtC4y61MYQ==
@@ -5937,7 +5966,7 @@ readdirp@~3.6.0:
   dependencies:
     picomatch "^2.2.1"
 
-reflect-metadata@^0.1.12, "reflect-metadata@^0.1.12 || ^0.2.0", reflect-metadata@^0.1.13:
+"reflect-metadata@^0.1.12 || ^0.2.0", reflect-metadata@^0.1.13:
   version "0.1.14"
   resolved "https://registry.npmjs.org/reflect-metadata/-/reflect-metadata-0.1.14.tgz"
   integrity sha512-ZhYeb6nRaXCfhnndflDK8qI6ZQ/YcWZCISRAWICW9XYqMUwjZM9Z0DveWX/ABN01oxSHwVxKQmxeYZSsm0jh5A==
@@ -6196,10 +6225,10 @@ side-channel@^1.0.6, side-channel@^1.1.0:
     side-channel-map "^1.0.1"
     side-channel-weakmap "^1.0.2"
 
-sift@16.0.1:
-  version "16.0.1"
-  resolved "https://registry.npmjs.org/sift/-/sift-16.0.1.tgz"
-  integrity sha512-Wv6BjQ5zbhW7VFefWusVP33T/EM0vYikCaQ2qR8yULbsilAT8/wQaXvuQ3ptGLpoKx+lihJE3y2UTgKDyyNHZQ==
+sift@17.1.3:
+  version "17.1.3"
+  resolved "https://registry.npmjs.org/sift/-/sift-17.1.3.tgz"
+  integrity sha512-Rtlj66/b0ICeFzYTuNvX/EF1igRbbnGSvEyT79McoZa/DeGhMyC5pWKOEsZKnpkqtSeovd5FL/bjHWC3CIIvCQ==
 
 signal-exit@^3.0.2:
   version "3.0.7"
@@ -6569,6 +6598,13 @@ tr46@^3.0.0:
   integrity sha512-l7FvfAHlcmulp8kr+flpQZmVwtu7nfRV7NZujtN0OqES8EL4O4e0qqzL0DC5gAvx/ZC/9lk6rhcUwYvkBnBnYA==
   dependencies:
     punycode "^2.1.1"
+
+tr46@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.npmjs.org/tr46/-/tr46-5.1.0.tgz"
+  integrity sha512-IUWnUK7ADYR5Sl1fZlO1INDUhVhatWl7BtJWsIhwJ0UAK7ilzzIa8uIqOO/aYVWHZPJkKbEL+362wrzoeRF7bw==
+  dependencies:
+    punycode "^2.3.1"
 
 tree-kill@1.2.2:
   version "1.2.2"
@@ -6973,6 +7009,14 @@ whatwg-url@^11.0.0:
   integrity sha512-RKT8HExMpoYx4igMiVMY83lN6UeITKJlBQ+vR/8ZJ8OCdSiN3RwCq+9gH0+Xzj0+5IrM6i4j/6LuvzbZIQgEcQ==
   dependencies:
     tr46 "^3.0.0"
+    webidl-conversions "^7.0.0"
+
+"whatwg-url@^14.1.0 || ^13.0.0":
+  version "14.2.0"
+  resolved "https://registry.npmjs.org/whatwg-url/-/whatwg-url-14.2.0.tgz"
+  integrity sha512-De72GdQZzNTUBBChsXueQUnPKDkg/5A5zp7pFDuQAj5UFoENpiACU0wlCvzpAGnTkj++ihpKwKyYewn/XNUbKw==
+  dependencies:
+    tr46 "^5.1.0"
     webidl-conversions "^7.0.0"
 
 whatwg-url@^8.0.0, whatwg-url@^8.5.0:
