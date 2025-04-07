@@ -39,33 +39,44 @@ dotenv.config();
 
 const MongoDBStore = require('connect-mongodb-session')(session);
 
-// Bootstrap function to initialize the NestJS app
 async function bootstrap() {
-  const server = express();
-  const app = await NestFactory.create<NestExpressApplication>(
-    AppModule,
-    new ExpressAdapter(server),
-  );
+  try {
+    const server = express();
+    console.log('Initializing Nest app...');
+    const app = await NestFactory.create<NestExpressApplication>(
+      AppModule,
+      new ExpressAdapter(server),
+    );
 
-  app.set('trust proxy', 1);
-  app.enableCors(corsConfig());
-  app.use(session(sessionConfig(MongoDBStore)));
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+    app.set('trust proxy', 1);
+    app.enableCors(corsConfig());
+    app.use(session(sessionConfig(MongoDBStore)));
+    app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+    app.setGlobalPrefix('api');
 
-  await app.init(); // Initialize the app
-  return server;
+    console.log('App initialized, awaiting init...');
+    await app.init();
+    console.log('App fully initialized');
+    return server;
+  } catch (error) {
+    console.error('Bootstrap failed:', error);
+    throw error;
+  }
 }
 
-// Vercel serverless function export
-let cachedServer; // Cache the server instance
+let cachedServer;
 module.exports = async (req, res) => {
-  if (!cachedServer) {
-    cachedServer = await bootstrap(); // Initialize once and reuse
+  try {
+    if (!cachedServer) {
+      cachedServer = await bootstrap();
+    }
+    cachedServer(req, res);
+  } catch (error) {
+    console.error('Request handling failed:', error);
+    res.status(500).send('Internal Server Error');
   }
-  cachedServer(req, res); // Handle the request
 };
 
-// For local testing (optional)
 if (process.env.NODE_ENV !== 'production') {
   bootstrap().then((server) => {
     const port = process.env.PORT || 3000;
