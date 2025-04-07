@@ -50,7 +50,16 @@ async function bootstrap() {
 
     app.set('trust proxy', 1);
     app.enableCors(corsConfig());
-    app.use(session(sessionConfig(MongoDBStore)));
+
+    const store = new MongoDBStore({
+      uri: process.env.MONGO_URI,
+      collection: 'sessions',
+    });
+    store.on('error', (error: Error) => {
+      console.error('MongoDB session store error:', error);
+    });
+
+    app.use(session(sessionConfig(store)));
     app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
     app.setGlobalPrefix('api');
 
