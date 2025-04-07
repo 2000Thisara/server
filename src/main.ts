@@ -37,8 +37,6 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const MongoDBStore = require('connect-mongodb-session')(session);
-
 async function bootstrap() {
   try {
     const server = express();
@@ -50,16 +48,7 @@ async function bootstrap() {
 
     app.set('trust proxy', 1);
     app.enableCors(corsConfig());
-
-    const store = new MongoDBStore({
-      uri: process.env.MONGO_URI,
-      collection: 'sessions',
-    });
-    store.on('error', (error: Error) => {
-      console.error('MongoDB session store error:', error);
-    });
-
-    app.use(session(sessionConfig(store)));
+    app.use(session(sessionConfig())); // Use sessionConfig directly without passing store
     app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
     app.setGlobalPrefix('api');
 
@@ -82,7 +71,7 @@ module.exports = async (req, res) => {
     cachedServer(req, res);
   } catch (error) {
     console.error('Request handling failed:', error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send('Internal Server Error: ' + error.message);
   }
 };
 
