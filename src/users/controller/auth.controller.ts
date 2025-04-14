@@ -107,6 +107,7 @@ import {
   Put,
   Session,
   UseGuards,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { CurrentUser } from 'src/decorators/current-user.decorator';
 import { AuthGuard } from 'src/guards/auth.guard';
@@ -131,12 +132,14 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@CurrentUser() user: UserDocument, @Session() session: any) {
-    const { name, _id, email, isAdmin } = user;
+    if (!user) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
 
-    const { accessToken } = await this.authService.login(name, _id.toString()); // Cast _id to string
+    const { name, _id, email, isAdmin } = user;
+    const { accessToken } = await this.authService.login(name, _id.toString());
 
     const loggedUser = { name, _id, isAdmin, email, accessToken };
-
     session.user = loggedUser;
 
     return loggedUser;
@@ -145,12 +148,16 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Session() session: any) {
+    if (!session.user) {
+      throw new UnauthorizedException('Not authenticated');
+    }
     return session.user;
   }
 
   @Post('logout')
   async logout(@Session() session: any) {
     session.user = null;
+    return { message: 'Logged out successfully' };
   }
 
   @Post('register')
@@ -159,10 +166,8 @@ export class AuthController {
     @Session() session: any,
   ) {
     const user = await this.authService.register(name, email, password);
-
     const { _id, isAdmin } = user;
-
-    const { accessToken } = await this.authService.login(name, user._id.toString()); // Cast user._id to string
+    const { accessToken } = await this.authService.login(name, user._id.toString());
 
     const loggedUser = {
       name: user.name,
@@ -171,7 +176,6 @@ export class AuthController {
       email: user.email,
       accessToken,
     };
-
     session.user = loggedUser;
 
     return loggedUser;
@@ -180,8 +184,11 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Put('profile')
   async updateUser(@Body() credentials: ProfileDto, @Session() session: any) {
-    const user = await this.usersService.update(session.user._id, credentials);
+    if (!session.user) {
+      throw new UnauthorizedException('Not authenticated');
+    }
 
+    const user = await this.usersService.update(session.user._id, credentials);
     const { name, _id, email, isAdmin } = user;
 
     const updatedUser = {
@@ -191,7 +198,6 @@ export class AuthController {
       email,
       accessToken: session.user.accessToken,
     };
-
     session.user = updatedUser;
 
     return updatedUser;
