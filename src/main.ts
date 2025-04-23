@@ -35,6 +35,7 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import * as express from 'express';
 import * as dotenv from 'dotenv';
 
+// Load environment variables
 dotenv.config();
 
 async function bootstrap() {
@@ -50,7 +51,11 @@ async function bootstrap() {
     app.enableCors(corsConfig());
     app.use(session(sessionConfig())); // Use sessionConfig directly without passing store
     app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-    app.setGlobalPrefix('api');
+
+    // Set global prefix for API routes, but exclude the root route (/)
+    app.setGlobalPrefix('api', {
+      exclude: ['/'], // Exclude the root route from the prefix
+    });
 
     console.log('App initialized, awaiting init...');
     await app.init();
@@ -62,8 +67,10 @@ async function bootstrap() {
   }
 }
 
-let cachedServer;
-module.exports = async (req, res) => {
+// Type the cachedServer as an Express application
+let cachedServer: express.Application | undefined;
+
+module.exports = async (req: express.Request, res: express.Response) => {
   try {
     if (!cachedServer) {
       cachedServer = await bootstrap();
@@ -71,18 +78,21 @@ module.exports = async (req, res) => {
     cachedServer(req, res);
   } catch (error) {
     console.error('Request handling failed:', error);
-    res.status(500).send('Internal Server Error: ' + error.message);
+    res.status(500).send('Internal Server Error: ' + (error as Error).message);
   }
 };
 
+// Start the server locally for development
 if (process.env.NODE_ENV !== 'production') {
-  bootstrap().then((server) => {
-    const port = process.env.PORT || 3000;
-    server.listen(port, () => {
-      console.log(`Nest application running locally on port ${port}`);
+  bootstrap()
+    .then((server) => {
+      const port = process.env.PORT || 3000;
+      server.listen(port, () => {
+        console.log(`Nest application running locally on port ${port}`);
+      });
+    })
+    .catch((error) => {
+      console.error('Error starting local server:', error);
+      process.exit(1);
     });
-  }).catch((error) => {
-    console.error('Error starting local server:', error);
-    process.exit(1);
-  });
 }
