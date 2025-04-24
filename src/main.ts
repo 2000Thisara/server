@@ -49,12 +49,12 @@ async function bootstrap() {
 
     app.set('trust proxy', 1);
     app.enableCors(corsConfig());
-    app.use(session(sessionConfig())); // Use sessionConfig directly without passing store
+    app.use(session(sessionConfig()));
     app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
     // Set global prefix for API routes, but exclude the root route (/)
     app.setGlobalPrefix('api', {
-      exclude: ['/'], // Exclude the root route from the prefix
+      exclude: ['/'],
     });
 
     console.log('App initialized, awaiting init...');
@@ -77,7 +77,12 @@ module.exports = async (req: express.Request, res: express.Response) => {
     }
     cachedServer(req, res);
   } catch (error) {
-    console.error('Request handling failed:', error);
+    console.error('Request handling failed:', {
+      message: (error as Error).message,
+      stack: (error as Error).stack,
+      url: req.url,
+      method: req.method,
+    });
     res.status(500).send('Internal Server Error: ' + (error as Error).message);
   }
 };
