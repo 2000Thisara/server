@@ -17,7 +17,7 @@ export class ProductDto {
   brand: string;
 
   @IsString()
-  category: string;
+  category: string; // Category ID as string (ObjectId)
 
   @IsNumber()
   countInStock: number;
