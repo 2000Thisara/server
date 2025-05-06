@@ -1,6 +1,6 @@
 // import * as mongoose from 'mongoose';
 // import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-// import { User } from '../../users/schemas/user.schema';
+// import { Types } from 'mongoose'; // Add this import
 
 // export type ProductDocument = Product & mongoose.Document;
 
@@ -12,7 +12,7 @@
 //     ref: 'User',
 //     default: null,
 //   })
-//   user: User;
+//   user: Types.ObjectId; // Correct type to match ref behavior
 
 //   @Prop({ required: true })
 //   name: string;
@@ -35,7 +35,7 @@
 //   @Prop({ required: true })
 //   category: string;
 
-//   @Prop({ require: true })
+//   @Prop({ required: true }) // Fixed typo: require -> required
 //   image: string;
 
 //   @Prop({ required: true })
@@ -59,10 +59,9 @@
 
 // export const ProductSchema = SchemaFactory.createForClass(Product);
 
-
 import * as mongoose from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types } from 'mongoose'; // Add this import
+import { Types } from 'mongoose';
 
 export type ProductDocument = Product & mongoose.Document;
 
@@ -74,7 +73,7 @@ export class Review {
     ref: 'User',
     default: null,
   })
-  user: Types.ObjectId; // Correct type to match ref behavior
+  user: Types.ObjectId;
 
   @Prop({ required: true })
   name: string;
@@ -94,10 +93,10 @@ export class Product {
   @Prop({ required: true })
   brand: string;
 
-  @Prop({ required: true })
-  category: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true })
+  category: Types.ObjectId;
 
-  @Prop({ required: true }) // Fixed typo: require -> required
+  @Prop({ required: true })
   image: string;
 
   @Prop({ required: true })
@@ -117,6 +116,9 @@ export class Product {
 
   @Prop({ required: true, default: 0 })
   countInStock: number;
+
+  @Prop({ default: 0 })
+  viewCount: number;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
