@@ -302,6 +302,7 @@ export class ProductsService {
   }
 
   async createSample(): Promise<ProductDocument> {
+    console.log('Creating sample product...');
     const createdProduct = await this.productModel.create(sampleProduct);
     return createdProduct;
   }
