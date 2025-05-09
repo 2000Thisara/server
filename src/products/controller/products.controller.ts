@@ -135,7 +135,7 @@ export class ProductsController {
 
   @UseGuards(AdminGuard)
   @Post()
-  createProduct() {
+  createProduct(@Body() product: ProductDto) {
     return this.productsService.createSample();
   }
 
