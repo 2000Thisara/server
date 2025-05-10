@@ -1,67 +1,6 @@
-// import * as mongoose from 'mongoose';
-// import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-// import { Types } from 'mongoose'; // Add this import
-
-// export type ProductDocument = Product & mongoose.Document;
-
-// @Schema({ timestamps: true })
-// export class Review {
-//   @Prop({
-//     type: mongoose.Schema.Types.ObjectId,
-//     required: true,
-//     ref: 'User',
-//     default: null,
-//   })
-//   user: Types.ObjectId; // Correct type to match ref behavior
-
-//   @Prop({ required: true })
-//   name: string;
-
-//   @Prop({ required: true })
-//   rating: number;
-
-//   @Prop({ required: true })
-//   comment: string;
-// }
-
-// @Schema({ timestamps: true })
-// export class Product {
-//   @Prop({ required: true })
-//   name: string;
-
-//   @Prop({ required: true })
-//   brand: string;
-
-//   @Prop({ required: true })
-//   category: string;
-
-//   @Prop({ required: true }) // Fixed typo: require -> required
-//   image: string;
-
-//   @Prop({ required: true })
-//   description: string;
-
-//   @Prop({ required: true })
-//   reviews: Review[];
-
-//   @Prop({ required: true, default: 0 })
-//   rating: number;
-
-//   @Prop({ required: true, default: 0 })
-//   numReviews: number;
-
-//   @Prop({ required: true, default: 0 })
-//   price: number;
-
-//   @Prop({ required: true, default: 0 })
-//   countInStock: number;
-// }
-
-// export const ProductSchema = SchemaFactory.createForClass(Product);
-
 import * as mongoose from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
+import { User } from '../../users/schemas/user.schema';
 
 export type ProductDocument = Product & mongoose.Document;
 
@@ -73,7 +12,7 @@ export class Review {
     ref: 'User',
     default: null,
   })
-  user: Types.ObjectId;
+  user: User;
 
   @Prop({ required: true })
   name: string;
@@ -93,10 +32,10 @@ export class Product {
   @Prop({ required: true })
   brand: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true })
-  category: Types.ObjectId;
-
   @Prop({ required: true })
+  category: string;
+
+  @Prop({ require: true })
   image: string;
 
   @Prop({ required: true })
@@ -116,9 +55,6 @@ export class Product {
 
   @Prop({ required: true, default: 0 })
   countInStock: number;
-
-  @Prop({ default: 0 })
-  viewCount: number;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
