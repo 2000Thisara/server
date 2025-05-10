@@ -68,14 +68,14 @@ export class Order {
   @Prop({ default: false })
   isPaid: boolean;
 
-  @Prop({ required: false })
-  paidAt: string;
+  @Prop({ required: false, type: Date })
+  paidAt: Date;
 
   @Prop({ default: false })
   isDelivered: boolean;
 
-  @Prop({ required: false })
-  deliveredAt: string;
+  @Prop({ required: false, type: Date })
+  deliveredAt: Date;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
