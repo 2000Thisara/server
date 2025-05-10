@@ -1,9 +1,16 @@
-import { Body, Controller, Get, Param, Post, Put, Session, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Session,
+  UseGuards,
+} from '@nestjs/common';
 import { AdminGuard } from 'src/guards/admin.guard';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { OrdersService } from '../services/orders.service';
-import { CreateOrderDto } from '../dto/create-order.dto';
-import { PaymentResultDto } from '../dto/payment-result.dto';
 
 @Controller('orders')
 export class OrdersController {
@@ -11,8 +18,8 @@ export class OrdersController {
 
   @UseGuards(AuthGuard)
   @Post()
-  async createOrder(@Body() createOrderDto: CreateOrderDto, @Session() session: any) {
-    return this.ordersService.create(createOrderDto, session.user._id);
+  async createOrder(@Body() body: any, @Session() session: any) {
+    return this.ordersService.create(body, session.user._id);
   }
 
   @UseGuards(AdminGuard)
@@ -37,9 +44,9 @@ export class OrdersController {
   @Put(':id/pay')
   async updateOrderPayment(
     @Param('id') id: string,
-    @Body() paymentResultDto: PaymentResultDto
+    @Body() { paymentResult }: any
   ) {
-    return this.ordersService.updatePaid(id, paymentResultDto);
+    return this.ordersService.updatePaid(id, paymentResult);
   }
 
   @UseGuards(AdminGuard)
@@ -48,4 +55,3 @@ export class OrdersController {
     return this.ordersService.updateDelivered(id);
   }
 }
-
