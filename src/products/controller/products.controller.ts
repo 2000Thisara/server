@@ -44,7 +44,7 @@ export class ProductsController {
     return this.productsService.deleteOne(id);
   }
 
-  //@UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @Post()
   createProduct() {
     return this.productsService.createSample();
