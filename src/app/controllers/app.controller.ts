@@ -24,4 +24,11 @@ export class AppController {
     const response = await this.appService.uploadImageToCloudinary(file);
     return response.url;
   }
+
+  @Post('uploadLogo')
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadLogo(@UploadedFile() file: Express.Multer.File) {
+    const response = await this.appService.uploadImageToCloudinary(file);
+    return response.url;
+  }
 }
