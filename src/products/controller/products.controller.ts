@@ -53,6 +53,7 @@ export class ProductsController {
   @UseGuards(AdminGuard)
   @Put(':id')
   updateProduct(@Param('id') id: string, @Body() product: ProductDto) {
+    console.log(product.image);
     return this.productsService.update(id, product);
   }
 

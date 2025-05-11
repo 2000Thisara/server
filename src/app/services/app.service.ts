@@ -10,4 +10,10 @@ export class AppService {
       throw new BadRequestException('Invalid file type.');
     });
   }
+
+  async uploadLogoToCloudinary(file: Express.Multer.File) {
+    return await this.cloudinary.uploadImage(file).catch(err => {
+      throw new BadRequestException('Invalid file type.');
+    });
+  }
 }
