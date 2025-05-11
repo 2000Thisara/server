@@ -9,7 +9,6 @@ import { AdminGuard } from 'src/guards/admin.guard';
 export class HeaderController {
   constructor(private readonly headerService: HeaderService) {}
   
-  @UseGuards(AdminGuard)
   @Post('upload')
   async updateHeader(
     @Body() body: { name: string; color: string; image: string } // Now, image is just a string
