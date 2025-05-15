@@ -8,6 +8,7 @@ import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { encryptPassword } from 'src/utils';
 
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -43,12 +44,21 @@ export class AuthService {
 
     const encryptedPassword = await encryptPassword(password);
 
+    const v_token = Math.floor(Math.random() * 1000000);
+    const v_token_exp = new Date(Date.now()+10*60*1000);
+
     const user = await this.usersService.create({
       email,
       password: encryptedPassword,
       isAdmin: false,
       name,
+      isVerified: false,
+      v_token,
+      v_token_exp,
+
     });
+
+    // Send OTP via email
 
     return user;
   }

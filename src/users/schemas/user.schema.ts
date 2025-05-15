@@ -16,6 +16,15 @@ export class User {
 
   @Prop({ required: true, default: false })
   isAdmin: boolean;
+
+  @Prop({ required: true, default: false })
+  isVerified: boolean;
+
+  @Prop()
+  v_token: number;
+
+  @Prop()
+  v_token_exp: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -43,10 +43,12 @@
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
     "nestjs-command": "^3.1.1",
+    "nodemailer": "^7.0.3",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
+    "resend": "^4.5.1",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "yargs": "^17.3.1"
