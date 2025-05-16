@@ -157,6 +157,12 @@ export class UsersService {
     return user;
   }
 
+  async findOneByVToken(v_token: number): Promise<UserDocument> {
+    const user = await this.userModel.findOne({ v_token });
+
+    return user;
+  }
+
   async findAll(): Promise<UserDocument[]> {
     const users = await this.userModel.find();
 

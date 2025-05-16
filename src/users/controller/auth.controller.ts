@@ -129,6 +129,18 @@ export class AuthController {
     private usersService: UsersService,
   ) {}
 
+   @Post('verify')
+  async verifyOtp(@Body() body: { email: string; otp: string }) {
+
+    const { email, otp } = body;
+    const result = await this.authService.verifyOtp(email, otp);
+    return {
+      message: "verification successfull",
+    };
+  }
+
+
+
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@CurrentUser() user: UserDocument, @Session() session: any) {

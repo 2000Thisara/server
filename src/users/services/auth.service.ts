@@ -7,14 +7,47 @@ import { UsersService } from './users.service';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { encryptPassword } from 'src/utils';
+import { EmailService } from './emailservice';
+import { User, UserDocument } from '../schemas/user.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+
 
 
 @Injectable()
 export class AuthService {
   constructor(
+    @InjectModel (User.name) private User: Model<UserDocument>,
     private usersService: UsersService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private EmailService: EmailService
   ) {}
+
+async verifyOtp(email: string, otp: string): Promise<string> {
+  const user = await this.User.findOne({ email });
+
+
+  if (!user) {
+    throw new BadRequestException('User not found');
+  }
+
+  if (user.v_token_exp < new Date()) {
+    throw new BadRequestException('OTP expired');
+  }
+
+  if (user.v_token !== otp) {
+    throw new BadRequestException('Invalid OTP');
+  }
+
+  user.isVerified = true;
+  user.v_token = undefined;
+  user.v_token_exp = undefined;
+  await user.save();
+
+  return 'Email verified successfully';
+}
+
+
 
   async validateUser(email: string, password: string) {
     const user = await this.usersService.findOne(email);
@@ -44,7 +77,7 @@ export class AuthService {
 
     const encryptedPassword = await encryptPassword(password);
 
-    const v_token = Math.floor(Math.random() * 1000000);
+    const v_token = Math.floor(Math.random() * 1000000).toString();
     const v_token_exp = new Date(Date.now()+10*60*1000);
 
     const user = await this.usersService.create({
@@ -59,6 +92,7 @@ export class AuthService {
     });
 
     // Send OTP via email
+    await this.EmailService.sendOtpEmail(user.email, v_token);
 
     return user;
   }
