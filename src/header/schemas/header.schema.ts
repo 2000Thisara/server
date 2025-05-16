@@ -11,6 +11,9 @@ export class Header {
   @Prop({ required: true })
   color: string;
 
+  @Prop({ type: [String], default: [] }) // optional array field
+  items?: string[];
+
   @Prop({ required: true })
   image: string; // Store the image URL/path
 }

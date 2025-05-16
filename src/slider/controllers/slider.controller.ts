@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
+import { Controller, Post, Get, Body, Put, Delete, Param, UseInterceptors, UploadedFile, UseGuards } from '@nestjs/common';
 import { SliderService } from '../services/slider.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -23,6 +23,24 @@ export class SliderController {
 
     return { message: 'Slider uploaded successfully', slider };
   }
+
+
+  @Put(':id')
+  async updateSliderItem(
+    @Param('id') id: string,
+    @Body() body: { name?: string; description?: string; image?: string },
+  ) {
+    const updated = await this.sliderService.updateSliderItem(id, body);
+    return { message: 'Slider updated successfully', slider: updated };
+  }
+
+  @Delete(':id')
+  async deleteSliderItem(@Param('id') id: string) {
+    await this.sliderService.deleteSliderItem(id);
+    return { message: 'Slider deleted successfully' };
+  }
+
+
 
   @Get()
   async getAllSliders() {
