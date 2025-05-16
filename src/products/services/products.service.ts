@@ -58,13 +58,11 @@ export class ProductsService {
     return product;
   }
 
-  async createMany(
-    products: Partial<ProductDocument>[]
-  ): Promise<ProductDocument[]> {
+  async createMany(products: Partial<ProductDocument>[]): Promise<ProductDocument[]> {
     const createdProducts = await this.productModel.insertMany(products);
-
-    return createdProducts;
+    return createdProducts as ProductDocument[];
   }
+  
 
   async createSample(): Promise<ProductDocument> {
     const createdProduct = await this.productModel.create(sampleProduct);
@@ -101,7 +99,7 @@ export class ProductsService {
 
   async createReview(
     id: string,
-    user: Partial<UserDocument>,
+    user: Pick<UserDocument, '_id' | 'name'>,
     rating: number,
     comment: string
   ): Promise<ProductDocument> {
@@ -126,7 +124,7 @@ export class ProductsService {
       user: user._id,
     };
 
-    product.reviews.push(review);
+    //product.reviews.push(review);
 
     product.rating =
       product.reviews.reduce((acc, item) => item.rating + acc, 0) /
@@ -147,7 +145,7 @@ export class ProductsService {
 
     if (!product) throw new NotFoundException('No product with given ID.');
 
-    await product.remove();
+    await product.deleteOne();
   }
 
   async deleteMany(): Promise<void> {
