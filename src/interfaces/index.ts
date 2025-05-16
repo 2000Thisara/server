@@ -36,3 +36,4 @@ export interface PaginatedProducts {
   pages: number;
   page: number;
 }
+

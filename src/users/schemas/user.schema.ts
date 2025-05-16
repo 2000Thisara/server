@@ -21,7 +21,7 @@ export class User {
   isVerified: boolean;
 
   @Prop()
-  v_token: number;
+  v_token: string;
 
   @Prop()
   v_token_exp: Date;
