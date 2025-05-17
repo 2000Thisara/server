@@ -58,13 +58,12 @@ export class ProductsService {
     return product;
   }
 
-  async createMany(
-    products: Partial<ProductDocument>[]
-  ): Promise<ProductDocument[]> {
+  async createMany(products: Partial<ProductDocument>[]): Promise<ProductDocument[]> {
     const createdProducts = await this.productModel.insertMany(products);
 
     return createdProducts as ProductDocument[];
   }
+  
 
   async createSample(): Promise<ProductDocument> {
     const createdProduct = await this.productModel.create(sampleProduct);
@@ -99,7 +98,7 @@ export class ProductsService {
 
   async createReview(
     id: string,
-    user: UserDocument,
+    user: Pick<UserDocument, '_id' | 'name'>,
     rating: number,
     comment: string
   ): Promise<ProductDocument> {
@@ -125,7 +124,7 @@ export class ProductsService {
       user, // user reference as ObjectId
     };
 
-    product.reviews.push(review);
+    //product.reviews.push(review);
 
     // Recalculate rating
     product.rating =

@@ -9,7 +9,7 @@ export class HeaderService {
     @InjectModel(Header.name) private headerModel: Model<HeaderDocument>,
   ) {}
 
-  async updateHeader(data: { name: string; color: string; image: string }) {
+  async updateHeader(data: { name: string; color: string; image: string; items:string[] }) {
     // Find the existing footer document
     const existingHeader = await this.headerModel.findById("67be06d948daefa59a81ac83");
   
@@ -21,6 +21,7 @@ export class HeaderService {
     existingHeader.name = data.name;
     existingHeader.color = data.color;
     existingHeader.image = data.image;
+    existingHeader.items = data.items;
   
     return await existingHeader.save(); // Save the changes
   }
