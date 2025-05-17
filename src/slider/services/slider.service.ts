@@ -14,6 +14,15 @@ export class SliderService {
     return await newSlider.save();
   }
 
+  async updateSliderItem(id: string, updates: any) {
+    return this.sliderModel.findByIdAndUpdate(id, updates, { new: true });
+  }
+  
+  async deleteSliderItem(id: string) {
+    return this.sliderModel.findByIdAndDelete(id);
+  }
+  
+
   async fetchSliders() {
     return await this.sliderModel.find();
   }
