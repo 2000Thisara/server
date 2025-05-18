@@ -13,7 +13,8 @@ export class CloudinaryService {
       const upload = v2.uploader.upload_stream(
   { 
     folder: 'modern-commerce',
-    background_removal: "cloudinary_ai"  // Enable Cloudinary AI background removal
+    background_removal: "cloudinary_ai",  // Enable Cloudinary AI background removal
+    format: 'png',  // Explicitly set format to PNG to preserve transparency
   },
   (error, result) => {
     if (error) return reject(error);
@@ -35,7 +36,8 @@ export class CloudinaryService {
 
       const upload = v2.uploader.upload_stream(
   { 
-    folder: 'modern-commerce'
+    folder: 'modern-commerce',
+    format: 'png'  // Preserve transparency in logos
   },
   (error, result) => {
     if (error) return reject(error);
