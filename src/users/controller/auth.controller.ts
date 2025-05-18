@@ -141,6 +141,15 @@ export class AuthController {
 
 
 
+  @Post('resend-otp')
+  async resendOtp(@Body('email') email: string) {
+    const message = await this.authService.resendOtp(email);
+    return { message };
+
+  }
+
+
+
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@CurrentUser() user: UserDocument, @Session() session: any) {
@@ -188,9 +197,10 @@ export class AuthController {
       email: user.email,
       accessToken,
     };
-    session.user = loggedUser;
+    
+    // session.user = loggedUser;
 
-    return loggedUser;
+    // return loggedUser;
   }
 
   @UseGuards(AuthGuard)

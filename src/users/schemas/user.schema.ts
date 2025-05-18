@@ -23,6 +23,9 @@ export class User {
   @Prop()
   v_token: string;
 
+  @Prop({ default: 0 })
+  v_token_attempts: number;
+
   @Prop()
   v_token_exp: Date;
 }
