@@ -197,10 +197,7 @@ export class AuthController {
       email: user.email,
       accessToken,
     };
-    
-    // session.user = loggedUser;
 
-    // return loggedUser;
   }
 
   @UseGuards(AuthGuard)
