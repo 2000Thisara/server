@@ -91,7 +91,7 @@ export const sessionConfig = (): SessionOptions => {
     resave: false,
     saveUninitialized: false,
     cookie:
-      process.env.NODE_ENV === 'production'
+      process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging'
         ? {
             httpOnly: true,
             sameSite: 'none',
