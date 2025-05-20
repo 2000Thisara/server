@@ -20,7 +20,6 @@ import { ProductsService } from '../services/products.service'; // Service to ha
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
-  // GET /products?keyword=...&pageId=...
   // Retrieves a list of products, optionally filtered by keyword and paginated by pageId
   @Get()
   getProducts(
@@ -30,21 +29,18 @@ export class ProductsController {
     return this.productsService.findMany(keyword, pageId);
   }
 
-  // GET /products/topRated
   // Retrieves a list of top-rated products
   @Get('topRated')
   getTopRatedProducts() {
     return this.productsService.findTopRated();
   }
 
-  // GET /products/:id
   // Retrieves details of a single product by its ID
   @Get(':id')
   getProduct(@Param('id') id: string) {
     return this.productsService.findById(id);
   }
 
-  // DELETE /products/:id
   // Deletes a product by its ID; only accessible to admin users
   @UseGuards(AdminGuard)
   @Delete(':id')
@@ -52,7 +48,6 @@ export class ProductsController {
     return this.productsService.deleteOne(id);
   }
 
-  // POST /products
   // Creates a sample product; only accessible to admin users
   @UseGuards(AdminGuard)
   @Post()
@@ -60,7 +55,6 @@ export class ProductsController {
     return this.productsService.createSample();
   }
 
-  // PUT /products/:id
   // Updates a product by its ID with provided product data; only accessible to admin users
   @UseGuards(AdminGuard)
   @Put(':id')
@@ -69,7 +63,6 @@ export class ProductsController {
     return this.productsService.update(id, product);
   }
 
-  // PUT /products/:id/review
   // Creates a review for a product by its ID; only accessible to authenticated users
   @UseGuards(AuthGuard)
   @Put(':id/review')
