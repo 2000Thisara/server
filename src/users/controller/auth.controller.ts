@@ -33,7 +33,7 @@ export class AuthController {
   async verifyOtp(@Body() body: { email: string; otp: string }) {
 
     const { email, otp } = body;
-    const result = await this.authService.verifyOtp(email, otp);
+    await this.authService.verifyOtp(email, otp);
     return {
       message: "verification successfull",
     };

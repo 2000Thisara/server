@@ -6,14 +6,15 @@ import { Product, ProductSchema } from './schemas/product.schema';
 
 @Module({
   imports: [
+    // Registers the Product schema with Mongoose to enable database operations
     MongooseModule.forFeature([
       {
-        name: Product.name,
-        schema: ProductSchema,
+        name: Product.name, // Model name
+        schema: ProductSchema, // Schema definition
       },
     ]),
   ],
-  providers: [ProductsService],
-  controllers: [ProductsController],
+  providers: [ProductsService], // Service provider handling business logic for products
+  controllers: [ProductsController], // Controller handling HTTP requests related to products
 })
-export class ProductsModule {}
+export class ProductsModule {} // Module encapsulating all product-related components

@@ -1,22 +1,23 @@
 import { IsString, IsNumber } from 'class-validator';
 
+// Data Transfer Object for product data validation and typing
 export class ProductDto {
-  @IsString()
+  @IsString() 
   name: string;
 
-  @IsNumber()
+  @IsNumber() 
   price: number;
 
-  @IsString()
+  @IsString() 
   description: string;
 
-  @IsString()
+  @IsString() 
   image: string;
 
-  @IsString()
+  @IsString() 
   brand: string;
 
-  @IsString()
+  @IsString() 
   category: string;
 
   @IsNumber()
