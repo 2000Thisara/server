@@ -6,9 +6,10 @@ import { CategoryController } from './category.controller';
 
 @Module({
   imports: [
+    // Registers the Category schema with Mongoose to enable database operations
     MongooseModule.forFeature([{ name: Category.name, schema: CategorySchema }]),
   ],
-  controllers: [CategoryController],
-  providers: [CategoryService],
+  controllers: [CategoryController], // Controller handling HTTP requests related to categories
+  providers: [CategoryService], // Service provider handling business logic for categories
 })
-export class CategoryModule {}
+export class CategoryModule {} // Module encapsulating all category-related components

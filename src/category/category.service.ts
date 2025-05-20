@@ -4,19 +4,23 @@ import { Model } from 'mongoose';
 import { Category, CategoryDocument } from './category.schema';
 import { CreateCategoryDto } from './create-category.dto';
 
-@Injectable()
+@Injectable() // Marks this class as a provider that can be injected into other classes
 export class CategoryService {
+  // Injects the Mongoose model for Category
   constructor(@InjectModel(Category.name) private categoryModel: Model<CategoryDocument>) {}
 
+  // Creates and saves a new category in the database
   async create(createCategoryDto: CreateCategoryDto): Promise<CategoryDocument> {
     const createdCategory = new this.categoryModel(createCategoryDto);
     return createdCategory.save();
   }
 
+  // Retrieves all categories from the database
   async findAll(): Promise<CategoryDocument[]> {
     return this.categoryModel.find().exec();
   }
 
+  // Retrieves a single category by its ID
   async findOne(id: string): Promise<CategoryDocument> {
     return this.categoryModel.findById(id).exec();
   }

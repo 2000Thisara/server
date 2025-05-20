@@ -133,10 +133,19 @@ export class AuthController {
   async verifyOtp(@Body() body: { email: string; otp: string }) {
 
     const { email, otp } = body;
-    const result = await this.authService.verifyOtp(email, otp);
+    await this.authService.verifyOtp(email, otp);
     return {
       message: "verification successfull",
     };
+  }
+
+
+
+  @Post('resend-otp')
+  async resendOtp(@Body('email') email: string) {
+    const message = await this.authService.resendOtp(email);
+    return { message };
+
   }
 
 
@@ -174,8 +183,7 @@ export class AuthController {
 
   @Post('register')
   async register(
-    @Body() { name, email, password }: RegisterDto,
-    @Session() session: any,
+    @Body() { name, email, password }: RegisterDto
   ) {
     const user = await this.authService.register(name, email, password);
     const { _id, isAdmin } = user;
@@ -188,9 +196,7 @@ export class AuthController {
       email: user.email,
       accessToken,
     };
-    session.user = loggedUser;
 
-    return loggedUser;
   }
 
   @UseGuards(AuthGuard)
