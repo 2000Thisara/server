@@ -9,6 +9,7 @@ import { PaginatedProducts } from 'src/interfaces';
 import { UserDocument } from 'src/users/schemas/user.schema';
 import { sampleProduct } from '../../utils/data/product';
 import { Product, ProductDocument, Review } from '../schemas/product.schema';
+import { pick } from 'lodash';
 
 @Injectable()
 export class ProductsService {
@@ -121,7 +122,7 @@ export class ProductsService {
       name: user.name,
       rating,
       comment,
-      user, // user reference as ObjectId
+      user:pick<UserDocument,'_id'>, // user reference as ObjectId
     };
 
     //product.reviews.push(review);
