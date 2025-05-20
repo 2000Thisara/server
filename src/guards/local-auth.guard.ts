@@ -7,7 +7,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { isString } from 'class-validator';
 
 @Injectable()
-export class LocalAuthGuard extends AuthGuard('local') {
+export class LocalAuthGuard extends AuthGuard('local') {  //use default local strategy
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
 
