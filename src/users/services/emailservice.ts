@@ -8,8 +8,8 @@ export class EmailService {
     private transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'sellaro364@gmail.com',      // replace with your Gmail
-          pass: 'okpv rdew mtny jfdh',           // use App Password from Google
+          user: 'sellaro364@gmail.com',      
+          pass: 'okpv rdew mtny jfdh',   //google app password        
         },
       });
     
