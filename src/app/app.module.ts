@@ -15,6 +15,7 @@ import { CategoryModule } from 'src/category/category.module';
 import { AppController } from './controllers/app.controller';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 import { AppService } from './services/app.service';
+import { ServicesModule } from 'src/services/services.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { AppService } from './services/app.service';
     OrderModule,
     CloudinaryModule,
     CategoryModule,
+    ServicesModule
     // SeedsModule,
   ],
   controllers: [AppController],
