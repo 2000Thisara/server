@@ -100,8 +100,13 @@ export class OrdersService {
     return updatedOrder;
   }
 
-  async findUserOrders(userId: string) {
-    const orders = await this.orderModel.find({ user: userId });
+  async findUserOrders(userId: string): Promise<OrderDocument[]> {
+    if (!Types.ObjectId.isValid(userId))
+      throw new BadRequestException('Invalid user ID.');
+
+    const orders = await this.orderModel
+      .find({ user: userId })
+      .sort({ createdAt: -1 }); 
 
     return orders;
   }
