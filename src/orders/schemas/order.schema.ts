@@ -76,6 +76,9 @@ export class Order {
 
   @Prop({ required: false })
   deliveredAt: string;
+
+  @Prop({ default: 'Order Confirmed' }) // default status
+  status: string;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

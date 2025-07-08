@@ -40,6 +40,7 @@ export class OrdersService {
       taxPrice,
       shippingPrice,
       totalPrice,
+      status: 'Order Confirmed', // Initialize default status on create
     });
 
     return createdOrder;
@@ -106,8 +107,41 @@ export class OrdersService {
 
     const orders = await this.orderModel
       .find({ user: userId })
-      .sort({ createdAt: -1 }); 
+      .sort({ createdAt: -1 });
 
     return orders;
+  }
+
+  // NEW METHOD: Update the order status string field
+  async updateStatus(id: string, status: string): Promise<OrderDocument> {
+    if (!Types.ObjectId.isValid(id))
+      throw new BadRequestException('Invalid order ID.');
+
+    const validStatuses = [
+      'Order Confirmed',
+      'Processing',
+      'Shipped',
+      'Delivered',
+    ];
+
+    if (!validStatuses.includes(status)) {
+      throw new BadRequestException('Invalid order status.');
+    }
+
+    const order = await this.orderModel.findById(id);
+
+    if (!order) throw new NotFoundException('No order with given ID.');
+
+    order.status = status;
+
+    // Optional: set deliveredAt date if status is Delivered
+    if (status === 'Delivered') {
+      order.isDelivered = true;
+      order.deliveredAt = new Date().toISOString();
+    }
+
+    const updatedOrder = await order.save();
+
+    return updatedOrder;
   }
 }
