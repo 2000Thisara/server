@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
+import { 
+  Controller, 
+  Get, 
+  Post, 
+  Body, 
+  Param, 
+  Put, 
+  Delete, 
+  UseGuards 
+} from '@nestjs/common';
 import { ServicesService } from './services.service';
 import { ServicesDto } from './services.dto';
 import { ServicesDocument } from './services.schema';
@@ -22,5 +31,19 @@ export class ServicesController {
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<ServicesDocument> {
     return this.ServicesService.findOne(id);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() ServicesDto: ServicesDto
+  ): Promise<ServicesDocument> {
+    return this.ServicesService.update(id, ServicesDto);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string): Promise<{ message: string }> {
+    await this.ServicesService.remove(id);
+    return { message: 'Service deleted successfully' };
   }
 }
