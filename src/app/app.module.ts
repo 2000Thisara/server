@@ -17,10 +17,6 @@ import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 import { AppService } from './services/app.service';
 import { ServicesModule } from 'src/services/services.module';
 import { privacyPolicyModule } from 'src/privacyPolicy/privacyPolicy.module';
-import { PaymentModule } from 'src/payment/payment.module';
-import { Banner } from 'src/banner/banner.schema';
-import { BannerModule } from 'src/banner/banner.module';
-
 
 @Module({
   imports: [
@@ -44,8 +40,7 @@ import { BannerModule } from 'src/banner/banner.module';
     CloudinaryModule,
     CategoryModule,
     ServicesModule,
-    privacyPolicyModule,
-    PaymentModule,
+    privacyPolicyModule
     // SeedsModule,
   ],
   controllers: [AppController],

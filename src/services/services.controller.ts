@@ -46,4 +46,6 @@ export class ServicesController {
     await this.ServicesService.remove(id);
     return { message: 'Service deleted successfully' };
   }
+
+
 }
