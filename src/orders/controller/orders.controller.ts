@@ -5,6 +5,7 @@ import {
   Param,
   Post,
   Put,
+  Patch,
   Session,
   UseGuards,
 } from '@nestjs/common';
@@ -53,5 +54,14 @@ export class OrdersController {
   @Put(':id/deliver')
   async updateOrderDelivery(@Param('id') id: string) {
     return this.ordersService.updateDelivered(id);
+  }
+
+ // @UseGuards(AdminGuard)
+  @Patch(':id/status')
+  async updateOrderStatus(
+    @Param('id') id: string,
+    @Body('status') status: string,
+  ) {
+    return this.ordersService.updateStatus(id, status);
   }
 }

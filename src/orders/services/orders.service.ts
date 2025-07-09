@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
@@ -40,6 +41,7 @@ export class OrdersService {
       taxPrice,
       shippingPrice,
       totalPrice,
+      status: 'Order Confirmed', // Initialize default status on create
     });
 
     return createdOrder;
@@ -100,9 +102,66 @@ export class OrdersService {
     return updatedOrder;
   }
 
-  async findUserOrders(userId: string) {
-    const orders = await this.orderModel.find({ user: userId });
+  async findUserOrders(userId: string): Promise<OrderDocument[]> {
+    if (!Types.ObjectId.isValid(userId))
+      throw new BadRequestException('Invalid user ID.');
+
+    const orders = await this.orderModel
+      .find({ user: userId })
+      .sort({ createdAt: -1 });
 
     return orders;
   }
+
+  // NEW METHOD: Update the order status string field
+  async updateStatus(id: string, status: string): Promise<OrderDocument> {
+  try {
+    if (!Types.ObjectId.isValid(id)) {
+      throw new BadRequestException('Invalid order ID.');
+    }
+
+    const validStatuses = [
+      'Order Confirmed',
+      'Processing',
+      'Shipped',
+      'Delivered',
+    ];
+    if (!validStatuses.includes(status)) {
+      throw new BadRequestException('Invalid order status.');
+    }
+
+    const update: Partial<OrderDocument> = { status };
+
+    // If Delivered, set additional fields
+    if (status === 'Delivered') {
+      update['isDelivered'] = true;
+      update['deliveredAt'] = new Date().toISOString();
+    }
+
+    const updatedOrder = await this.orderModel.findByIdAndUpdate(
+      id,
+      update,
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedOrder) {
+      throw new NotFoundException('No order with the given ID.');
+    }
+
+    return updatedOrder;
+  } catch (error) {
+    console.error('UpdateStatus Error:', error);
+
+    if (error.name === 'ValidationError') {
+      throw new BadRequestException(
+        `Validation failed: ${error.message}`,
+      );
+    }
+
+    throw new InternalServerErrorException(
+      'Could not update order status. Please try again later.',
+    );
+  }
+}
+
 }
