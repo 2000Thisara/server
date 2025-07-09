@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
@@ -114,8 +115,10 @@ export class OrdersService {
 
   // NEW METHOD: Update the order status string field
   async updateStatus(id: string, status: string): Promise<OrderDocument> {
-    if (!Types.ObjectId.isValid(id))
+  try {
+    if (!Types.ObjectId.isValid(id)) {
       throw new BadRequestException('Invalid order ID.');
+    }
 
     const validStatuses = [
       'Order Confirmed',
@@ -123,25 +126,42 @@ export class OrdersService {
       'Shipped',
       'Delivered',
     ];
-
     if (!validStatuses.includes(status)) {
       throw new BadRequestException('Invalid order status.');
     }
 
-    const order = await this.orderModel.findById(id);
+    const update: Partial<OrderDocument> = { status };
 
-    if (!order) throw new NotFoundException('No order with given ID.');
-
-    order.status = status;
-
-    // Optional: set deliveredAt date if status is Delivered
+    // If Delivered, set additional fields
     if (status === 'Delivered') {
-      order.isDelivered = true;
-      order.deliveredAt = new Date().toISOString();
+      update['isDelivered'] = true;
+      update['deliveredAt'] = new Date().toISOString();
     }
 
-    const updatedOrder = await order.save();
+    const updatedOrder = await this.orderModel.findByIdAndUpdate(
+      id,
+      update,
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedOrder) {
+      throw new NotFoundException('No order with the given ID.');
+    }
 
     return updatedOrder;
+  } catch (error) {
+    console.error('UpdateStatus Error:', error);
+
+    if (error.name === 'ValidationError') {
+      throw new BadRequestException(
+        `Validation failed: ${error.message}`,
+      );
+    }
+
+    throw new InternalServerErrorException(
+      'Could not update order status. Please try again later.',
+    );
   }
+}
+
 }

@@ -56,7 +56,7 @@ export class OrdersController {
     return this.ordersService.updateDelivered(id);
   }
 
-  @UseGuards(AdminGuard)
+ // @UseGuards(AdminGuard)
   @Patch(':id/status')
   async updateOrderStatus(
     @Param('id') id: string,
