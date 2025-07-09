@@ -17,7 +17,8 @@ export class OrdersService {
 
   async create(
     orderAttrs: Partial<OrderDocument>,
-    userId: string
+    userId: string,
+    userName: string
   ): Promise<OrderDocument> {
     const {
       orderItems,
@@ -34,6 +35,7 @@ export class OrdersService {
 
     const createdOrder = await this.orderModel.create({
       user: userId,
+      userName: userName,
       orderItems,
       shippingDetails,
       paymentMethod,
