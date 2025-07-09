@@ -6,11 +6,14 @@ import { ServicesDto } from './services.dto';
 
 @Injectable()
 export class ServicesService {
-  constructor(@InjectModel(Services.name) private ServicesModel: Model<ServicesDocument>) {}
+  constructor(
+    @InjectModel(Services.name)
+    private ServicesModel: Model<ServicesDocument>
+  ) {}
 
   async create(ServicesDto: ServicesDto): Promise<ServicesDocument> {
-    const Services = new this.ServicesModel(ServicesDto);
-    return Services.save();
+    const service = new this.ServicesModel(ServicesDto);
+    return service.save();
   }
 
   async findAll(): Promise<ServicesDocument[]> {
@@ -19,5 +22,13 @@ export class ServicesService {
 
   async findOne(id: string): Promise<ServicesDocument> {
     return this.ServicesModel.findById(id).exec();
+  }
+
+  async update(id: string, ServicesDto: ServicesDto): Promise<ServicesDocument> {
+    return this.ServicesModel.findByIdAndUpdate(id, ServicesDto, { new: true });
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.ServicesModel.findByIdAndDelete(id);
   }
 }
