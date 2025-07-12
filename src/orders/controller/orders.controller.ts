@@ -20,7 +20,8 @@ export class OrdersController {
   @UseGuards(AuthGuard)
   @Post()
   async createOrder(@Body() body: any, @Session() session: any) {
-    return this.ordersService.create(body, session.user._id);
+    console.log(session.user);
+    return this.ordersService.create(body, session.user._id, session.user.name);
   }
 
   @UseGuards(AdminGuard)

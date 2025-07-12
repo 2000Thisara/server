@@ -10,6 +10,10 @@ export class Order {
   @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' })
   user: User;
 
+  @Prop({ required: true, type: String })
+  userName: string;
+
+
   @Prop({
     required: true,
     type: [
