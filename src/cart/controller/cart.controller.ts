@@ -68,4 +68,11 @@ export class CartController {
 
     return cartItems;
   }
+
+  // ✅ New: Clear entire cart
+  @Delete()
+  clearCart(@Session() session: any) {
+    session.cart = defaultCart; // Reset cart to default state
+    return { message: 'Cart cleared successfully', cart: session.cart };
+  }
 }
