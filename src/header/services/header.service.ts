@@ -16,7 +16,7 @@ export class HeaderService {
     if (!existingHeader) {
       throw new Error("Footer not found");
     }
-  
+    
     // Update the existing footer with new data
     existingHeader.name = data.name;
     existingHeader.color = data.color;

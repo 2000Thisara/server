@@ -10,7 +10,7 @@ import { AdminGuard } from 'src/guards/admin.guard';
 export class SliderController {
   constructor(private readonly sliderService: SliderService) {}
 
-
+  @UseGuards(AdminGuard)
   @Post('upload')
   async uploadSliderItem(
     @Body() body: { name: string; description: string; image: string } // Now, image is just a string
@@ -24,7 +24,7 @@ export class SliderController {
     return { message: 'Slider uploaded successfully', slider };
   }
 
-
+  @UseGuards(AdminGuard)
   @Put(':id')
   async updateSliderItem(
     @Param('id') id: string,
@@ -34,6 +34,7 @@ export class SliderController {
     return { message: 'Slider updated successfully', slider: updated };
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async deleteSliderItem(@Param('id') id: string) {
     await this.sliderService.deleteSliderItem(id);
