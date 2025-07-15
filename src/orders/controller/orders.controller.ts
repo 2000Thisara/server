@@ -24,6 +24,13 @@ export class OrdersController {
     return this.ordersService.create(body, session.user._id, session.user.name);
   }
 
+  // New route to create order from Stripe session ID
+  @Post('create-from-stripe')
+  async createFromStripe(@Body() body: { sessionId: string }) {
+    const { sessionId } = body;
+    return this.ordersService.createOrderFromStripeSession(sessionId);
+  }
+
   @UseGuards(AdminGuard)
   @Get()
   async getOrders() {
@@ -46,7 +53,7 @@ export class OrdersController {
   @Put(':id/pay')
   async updateOrderPayment(
     @Param('id') id: string,
-    @Body() { paymentResult }: any
+    @Body() { paymentResult }: any,
   ) {
     return this.ordersService.updatePaid(id, paymentResult);
   }
@@ -57,12 +64,9 @@ export class OrdersController {
     return this.ordersService.updateDelivered(id);
   }
 
- // @UseGuards(AdminGuard)
+  // @UseGuards(AdminGuard)
   @Patch(':id/status')
-  async updateOrderStatus(
-    @Param('id') id: string,
-    @Body('status') status: string,
-  ) {
+  async updateOrderStatus(@Param('id') id: string, @Body('status') status: string) {
     return this.ordersService.updateStatus(id, status);
   }
 }

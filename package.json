@@ -51,6 +51,7 @@
     "resend": "^4.5.1",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "stripe": "^18.3.0",
     "yargs": "^17.3.1"
   },
   "devDependencies": {
