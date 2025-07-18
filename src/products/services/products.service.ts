@@ -225,8 +225,6 @@ export class ProductsService {
     return product;
   }
 
-<<<<<<< HEAD
-=======
   // Get all unique categories from products
   async getCategories(): Promise<string[]> {
     const categories = await this.productModel.distinct('category');
@@ -241,7 +239,6 @@ export class ProductsService {
     return validCategories;
   }
 
->>>>>>> thisara
   // Create multiple products at once
   async createMany(products: Partial<ProductDocument>[]): Promise<ProductDocument[]> {
     // Insert many products to database
