@@ -18,6 +18,8 @@ import { AppService } from './services/app.service';
 import { ServicesModule } from 'src/services/services.module';
 import { privacyPolicyModule } from 'src/privacyPolicy/privacyPolicy.module';
 import { PaymentModule } from 'src/payment/payment.module';
+import { Banner } from 'src/banner/banner.schema';
+import { BannerModule } from 'src/banner/banner.module';
 
 
 @Module({
@@ -34,6 +36,7 @@ import { PaymentModule } from 'src/payment/payment.module';
     ProductsModule,
     UsersModule,
     SliderModule,
+    BannerModule,
     HeaderModule,
     FooterModule,
     CartModule,
