@@ -11,6 +11,10 @@ export class BannerService {
 
     async fetchBanner(): Promise<Banner[]> {
         return this.bannerModel.find().exec();
+    } 
+
+    async fetchEnableBanner(): Promise<Banner[]> {
+        return this.bannerModel.find({enable:true}).exec();
     }
 
     async createBanner(bannerData: Partial<Banner>): Promise<Banner> { 
