@@ -7,8 +7,13 @@ export class BannerController {
     constructor(private readonly bannerService: BannerService) {}
 
     @Get()
-    async getAllHeaders() {
+    async getAllBanners() {
     return this.bannerService.fetchBanner();
+  }
+
+  @Get('enabled')
+  async getEnabledBanners() {
+    return this.bannerService.fetchEnableBanner();
   }
 
   @Post()
