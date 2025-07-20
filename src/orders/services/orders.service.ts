@@ -5,16 +5,18 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import mongoose, { Model, Types } from 'mongoose';
 import { PaymentResult } from 'src/interfaces';
 import { Order, OrderDocument } from '../schemas/order.schema';
 import Stripe from 'stripe';
+import {Product, ProductDocument} from 'src/products/schemas/product.schema'; 
 
 @Injectable()
 export class OrdersService {
   private stripe: Stripe;
   constructor(
-    @InjectModel(Order.name) private orderModel: Model<OrderDocument>
+    @InjectModel(Order.name) private orderModel: Model<OrderDocument>,
+    @InjectModel(Product.name) private productModel: Model<ProductDocument>,
   ) {
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
       apiVersion: '2025-06-30.basil', // or your Stripe API version
@@ -172,64 +174,69 @@ export class OrdersService {
   }
 }
 
- async createOrderFromStripeSession(sessionId: string): Promise<OrderDocument> {
+ async createOrderFromStripeSession(sessionId: string, userId: string): Promise<OrderDocument> {
     try {
-      // Retrieve the session from Stripe with expanded line items and customer details
       const session = await this.stripe.checkout.sessions.retrieve(sessionId, {
         expand: ['line_items', 'customer_details', 'payment_intent'],
       });
 
-      if (!session) {
-        throw new NotFoundException('Stripe session not found');
-      }
+      if (!session) throw new NotFoundException('Stripe session not found');
 
-      // Extract necessary data
       const lineItems = session.line_items?.data ?? [];
       if (lineItems.length === 0) {
         throw new BadRequestException('No line items found in Stripe session');
       }
 
-      // Map Stripe line items to your orderItems format
-      const orderItems = lineItems.map((item) => ({
-        name: item.description || 'Unknown Product',
-        qty: item.quantity ?? 1,
-        price: item.price?.unit_amount ? item.price.unit_amount / 100 : 0,
-        productId: item.price?.product ? item.price.product.toString() : undefined,
-        image: '', // Optional: add product image URL if available
-      }));
+      // Fetch all products from DB to map names to IDs
+      const allProducts = await this.productModel.find().exec();
 
-      // Extract shipping details (if any)
-      const shippingDetails = session.customer_details
+      const orderItems = lineItems.map((item) => {
+        const productName = item.description || 'Unknown Product';
+
+        // Find matching product in DB by name
+        const matchedProduct = allProducts.find(
+          (p) => p.name === productName
+        );
+
+        if (!matchedProduct) {
+          throw new BadRequestException(`Product not found in DB: ${productName}`);
+        }
+
+        return {
+          name: productName,
+          qty: item.quantity ?? 1,
+          price: item.price?.unit_amount ? item.price.unit_amount / 100 : 0,
+          productId: matchedProduct._id,
+          image: matchedProduct.image || 'https://example.com/default-image.png', // adjust as needed
+        };
+      });
+
+      const shippingDetails = session.customer_details?.address
         ? {
-            address: session.customer_details.address?.line1 || '',
-            city: session.customer_details.address?.city || '',
-            postalCode: session.customer_details.address?.postal_code || '',
-            country: session.customer_details.address?.country || '',
+            address: session.customer_details.address.line1 || 'N/A',
+            city: session.customer_details.address.city || 'N/A',
+            postalCode: session.customer_details.address.postal_code || '00000',
+            country: session.customer_details.address.country || 'N/A',
           }
-        : null;
+        : {
+            address: 'N/A',
+            city: 'N/A',
+            postalCode: '00000',
+            country: 'N/A',
+          };
 
-      // Payment method (e.g., card)
-      const paymentMethod = session.payment_method_types?.[0] || 'card';
-
-      // Prices
-      const itemsPrice = session.amount_subtotal ? session.amount_subtotal / 100 : 0;
-      const shippingPrice = session.shipping_cost?.amount_total
-        ? session.shipping_cost.amount_total / 100
-        : 0;
-      const totalPrice = session.amount_total ? session.amount_total / 100 : 0;
-      const taxPrice = 0; // Adjust if you want to capture tax separately
-
-      // Create the order
       const createdOrder = await this.orderModel.create({
-        user: null, // You may want to link this to a user if you have customer metadata
+        user: new mongoose.Types.ObjectId(userId),
         userName: session.customer_details?.name || 'Stripe Customer',
         orderItems,
         shippingDetails,
-        paymentMethod,
-        itemsPrice,
-        taxPrice,
-        shippingPrice,
-        totalPrice,
+        paymentMethod: session.payment_method_types?.[0] || 'card',
+        itemsPrice: session.amount_subtotal ? session.amount_subtotal / 100 : 0,
+        shippingPrice: session.shipping_cost?.amount_total
+          ? session.shipping_cost.amount_total / 100
+          : 0,
+        totalPrice: session.amount_total ? session.amount_total / 100 : 0,
+        taxPrice: 0,
         status: 'Order Confirmed',
         isPaid: session.payment_status === 'paid',
         paidAt: session.payment_status === 'paid' ? new Date() : null,
@@ -250,7 +257,4 @@ export class OrdersService {
     }
   }
 }
-
-
-
 
