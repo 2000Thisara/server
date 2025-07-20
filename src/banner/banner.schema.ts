@@ -13,6 +13,9 @@ export class Banner {
 
   @Prop()
   productId:String; // Reference to the product associated with the banner
+
+  @Prop({default:true})
+  enable:boolean 
 }
 
 export const BannerSchema = SchemaFactory.createForClass(Banner);

@@ -114,10 +114,14 @@ export class ProductsController {
   }
 
   // Retrieves all unique categories from products
-  @Get('categories')
-  getCategories() {
-    return this.productsService.getCategories();
+  @Get('category/:category')
+  getProductsByCategory(
+    @Param('category') category: string,
+    @Query('page') page?: string
+  ) {
+    return this.productsService.findByCategory(category, page);
   }
+
 
   // Retrieves details of a single product by its ID
   @Get(':id')
