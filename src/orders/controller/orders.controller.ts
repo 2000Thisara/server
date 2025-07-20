@@ -25,11 +25,20 @@ export class OrdersController {
   }
 
   // New route to create order from Stripe session ID
-  @Post('create-from-stripe')
-  async createFromStripe(@Body() body: { sessionId: string }) {
-    const { sessionId } = body;
-    return this.ordersService.createOrderFromStripeSession(sessionId);
+  // Change this method to send a success flag
+@Post('create-from-stripe')
+async createFromStripe(@Body() body: { sessionId: string; userId: string }) {
+  try {
+    const { sessionId, userId } = body;
+    const order = await this.ordersService.createOrderFromStripeSession(sessionId, userId);
+    
+    return { success: true, order };  // <-- Add success true here
+  } catch (error) {
+    console.error('Create from Stripe error:', error);
+    return { success: false, message: error.message || 'Failed to create order from Stripe session' };
   }
+}
+
 
   @UseGuards(AdminGuard)
   @Get()
