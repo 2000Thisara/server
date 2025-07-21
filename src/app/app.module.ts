@@ -18,7 +18,6 @@ import { AppService } from './services/app.service';
 import { ServicesModule } from 'src/services/services.module';
 import { privacyPolicyModule } from 'src/privacyPolicy/privacyPolicy.module';
 import { BranchesModule } from 'src/branches/branches.module';
-import { AboutModule } from 'src/about/about.module';
 
 
 @Module({
@@ -43,8 +42,7 @@ import { AboutModule } from 'src/about/about.module';
     CategoryModule,
     ServicesModule,
     privacyPolicyModule,
-    BranchesModule,
-    AboutModule
+    BranchesModule
     // SeedsModule,
   ],
   controllers: [AppController],
