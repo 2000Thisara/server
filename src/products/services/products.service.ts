@@ -128,41 +128,71 @@ export class ProductsService {
 
   async createReview(
     id: string,
-    user: Pick<UserDocument, '_id' | 'name'>,
+    user: { _id: string | Types.ObjectId; name: string },
     rating: number,
     comment: string
   ): Promise<ProductDocument> {
-    if (!Types.ObjectId.isValid(id))
+    // Validate product ID
+    if (!Types.ObjectId.isValid(id)) {
       throw new BadRequestException('Invalid product ID.');
+    }
 
+    // Validate user._id
+    let userId: Types.ObjectId;
+    if (typeof user._id === 'string') {
+      if (!Types.ObjectId.isValid(user._id)) {
+        throw new BadRequestException('Invalid user ID.');
+      }
+      userId = new Types.ObjectId(user._id);
+    } else {
+      userId = user._id;
+    }
+
+    // Find the product
     const product = await this.productModel.findById(id);
-
-    if (!product) throw new NotFoundException('No product with given ID.');
+    if (!product) {
+      throw new NotFoundException('No product with given ID.');
+    }
 
     // Check if user already reviewed
     const alreadyReviewed = product.reviews.find(
-      r => r.user.toString() === user._id.toString()
+      (r) => r.user.toString() === userId.toString()
     );
-
-    if (alreadyReviewed)
+    if (alreadyReviewed) {
       throw new BadRequestException('Product already reviewed!');
+    }
 
+    // Validate rating
+    if (isNaN(rating) || rating < 1 || rating > 5) {
+      throw new BadRequestException('Invalid rating value.');
+    }
+
+    // Create the review
     const review: Review = {
       name: user.name,
       rating,
       comment,
-      user:pick<UserDocument, '_id'>, // user reference as ObjectId
+      user: userId as any, // Type assertion due to schema's user: User
     };
 
-    //product.reviews.push(review);
+    // Log review for debugging
+    console.log('Review:', JSON.stringify(review, null, 2));
+    console.log('User ID type:', review.user instanceof Types.ObjectId);
+
+    // Add the review to the product's reviews array
+    product.reviews.push(review);
 
     // Recalculate rating
     product.rating =
-      product.reviews.reduce((acc, item) => item.rating + acc, 0) /
-      product.reviews.length;
+      product.reviews.length > 0
+        ? product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+          product.reviews.length
+        : rating;
 
+    // Update number of reviews
     product.numReviews = product.reviews.length;
 
+    // Save the updated product
     const updatedProduct = await product.save();
 
     return updatedProduct;

@@ -93,6 +93,8 @@ import { AuthGuard } from 'src/guards/auth.guard'; // Guard to allow authenticat
 import { ProductDto } from '../dtos/product.dto'; // DTO for product data transfer
 import { ReviewDto } from '../dtos/review.dto'; // DTO for review data transfer
 import { ProductsService } from '../services/products.service'; // Service to handle product-related logic
+import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { Types } from 'mongoose'; // Mongoose Types for ObjectId
 
 @Controller('products') // Defines the route prefix for this controller
 export class ProductsController {
@@ -152,13 +154,52 @@ export class ProductsController {
   }
 
   // Creates a review for a product by its ID; only accessible to authenticated users
-  @UseGuards(AuthGuard)
+ @UseGuards(AuthGuard)
   @Put(':id/review')
-  createReview(
+  async createReview(
     @Param('id') id: string,
-    @Body() { rating, comment }: ReviewDto,
+    @Body() reviewDto: ReviewDto,
     @Session() session: any
   ) {
-    return this.productsService.createReview(id, session.user, rating, comment);
+    // Validate session.user
+    if (!session.user || !session.user._id || !session.user.name) {
+      console.log('Invalid session.user:', session.user);
+      throw new BadRequestException('Invalid user session');
+    }
+
+    // Validate and convert user._id
+    let userId: Types.ObjectId;
+    if (typeof session.user._id === 'string') {
+      if (!Types.ObjectId.isValid(session.user._id)) {
+        console.log('Invalid user._id string:', session.user._id);
+        throw new BadRequestException('Invalid user ID');
+      }
+      userId = new Types.ObjectId(session.user._id);
+    } else if (session.user._id instanceof Types.ObjectId) {
+      userId = session.user._id;
+    } else {
+      // Handle potential ObjectId from another bson version
+      const idString = session.user._id.toString();
+      if (Types.ObjectId.isValid(idString)) {
+        userId = new Types.ObjectId(idString);
+      } else {
+        console.log('Unexpected user._id type:', typeof session.user._id, session.user._id);
+        throw new BadRequestException('Invalid user ID type');
+      }
+    }
+
+    // Validate product ID
+    if (!Types.ObjectId.isValid(id)) {
+      throw new BadRequestException('Invalid product ID');
+    }
+
+    // Create user object
+    const user = { _id: userId, name: session.user.name };
+
+    // Log input for debugging
+    console.log('createReview input:', { id, rating: reviewDto.rating, comment: reviewDto.comment, user });
+
+    // Call the service
+    return this.productsService.createReview(id, user, reviewDto.rating, reviewDto.comment);
   }
 }
