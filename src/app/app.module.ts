@@ -17,6 +17,7 @@ import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 import { AppService } from './services/app.service';
 import { ServicesModule } from 'src/services/services.module';
 import { privacyPolicyModule } from 'src/privacyPolicy/privacyPolicy.module';
+import { BranchesModule } from 'src/branches/branches.module';
 
 @Module({
   imports: [
@@ -40,7 +41,8 @@ import { privacyPolicyModule } from 'src/privacyPolicy/privacyPolicy.module';
     CloudinaryModule,
     CategoryModule,
     ServicesModule,
-    privacyPolicyModule
+    privacyPolicyModule,
+    BranchesModule
     // SeedsModule,
   ],
   controllers: [AppController],
