@@ -17,7 +17,7 @@ import { AdminGuard } from '../guards/admin.guard';
 export class BranchesController {
   constructor(private readonly BranchesService: BranchesService) {}
 
-  //@UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @Post()
   async create(@Body() BranchesDto: BranchesDto): Promise<BranchesDocument> {
     return this.BranchesService.create(BranchesDto);
@@ -33,6 +33,7 @@ export class BranchesController {
     return this.BranchesService.findOne(id);
   }
 
+  @UseGuards(AdminGuard)
   @Put(':id')
   async update(
     @Param('id') id: string,
