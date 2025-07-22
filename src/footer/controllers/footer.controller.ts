@@ -11,12 +11,14 @@ export class FooterController {
 
   @Post('upload')
   async updateFooter(
-    @Body() body: { contactNumber: string; email: string; aboutUs: string; fbLink: string; whatsappLink: string; instaLink: string; ytLink: string; ttLink: string;  } // Now, image is just a string
+    @Body() body: { contactNumber: string; email: string; aboutUs: string; vision: string; mission: string; fbLink: string; whatsappLink: string; instaLink: string; ytLink: string; ttLink: string;  } // Now, image is just a string
   ) {
     const footer = await this.footerService.updateFooter({
       contactNumber: body.contactNumber,
       email: body.email,
       aboutUs: body.aboutUs,
+      vision: body.vision,
+      mission: body.mission,
       fbLink: body.fbLink,
       whatsappLink: body.whatsappLink,
       instaLink: body.instaLink,
