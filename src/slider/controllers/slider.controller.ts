@@ -13,12 +13,13 @@ export class SliderController {
   // @UseGuards(AdminGuard)
   @Post('upload')
   async uploadSliderItem(
-    @Body() body: { name: string; description: string; image: string } // Now, image is just a string
+    @Body() body: { name: string; description: string; image: string; productId: string } // Now, image is just a string
   ) {
     const slider = await this.sliderService.uploadSliderItem({
       name: body.name,
       description: body.description,
       image: body.image, // Directly store the image URL
+      productId: body.productId, // Ensure productId is included
     });
 
     return { message: 'Slider uploaded successfully', slider };
@@ -28,7 +29,7 @@ export class SliderController {
   @Put(':id')
   async updateSliderItem(
     @Param('id') id: string,
-    @Body() body: { name?: string; description?: string; image?: string },
+    @Body() body: { name?: string; description?: string; image?: string; productId?: string } // Allow partial updates,
   ) {
     const updated = await this.sliderService.updateSliderItem(id, body);
     return { message: 'Slider updated successfully', slider: updated };
