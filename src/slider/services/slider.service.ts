@@ -9,7 +9,7 @@ export class SliderService {
     @InjectModel(Slider.name) private sliderModel: Model<SliderDocument>,
   ) {}
 
-  async uploadSliderItem(data: { name: string; description: string; image: string }) {
+  async uploadSliderItem(data: { name: string; description: string; image: string; productId: string }) {
     const newSlider = new this.sliderModel(data);
     return await newSlider.save();
   }
