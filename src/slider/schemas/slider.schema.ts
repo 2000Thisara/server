@@ -13,6 +13,10 @@ export class Slider {
 
   @Prop({ required: true })
   image: string; // Store the image URL/path
+
+
+  @Prop({ required: true })
+  productId: string; // Reference to the product this slider is associated with
 }
 
 export const SliderSchema = SchemaFactory.createForClass(Slider);
