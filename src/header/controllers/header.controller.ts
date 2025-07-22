@@ -12,11 +12,13 @@ export class HeaderController {
   @UseGuards(AdminGuard)
   @Post('upload')
   async updateHeader(
-    @Body() body: { name: string; color: string; description: string; image: string; items?: string[] }// Now, image is just a string
+    @Body() body: { name: string; color: string; secondaryColor: string; ternaryColor: string; description: string; image: string; items?: string[] }// Now, image is just a string
   ) {
     const header = await this.headerService.updateHeader({
       name: body.name,
       color: body.color,
+      secondaryColor: body.secondaryColor,
+      ternaryColor: body.ternaryColor,
       image: body.image,
       items: body.items || []
     });
