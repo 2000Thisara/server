@@ -9,7 +9,7 @@ export class Branches{
   @Prop({ required: true})
   city: string;
 
-  @Prop()
+  @Prop({required: true})
   image: string;
 
   @Prop({ required: true})
@@ -21,7 +21,7 @@ export class Branches{
   @Prop({ required: true })
   closeAt: string;
 
-  @Prop()
+  @Prop({ required: true})
   location: string;
 
 }

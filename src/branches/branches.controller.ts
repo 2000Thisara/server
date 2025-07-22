@@ -17,7 +17,6 @@ import { AdminGuard } from '../guards/admin.guard';
 export class BranchesController {
   constructor(private readonly BranchesService: BranchesService) {}
 
-  @UseGuards(AdminGuard)
   @Post()
   async create(@Body() BranchesDto: BranchesDto): Promise<BranchesDocument> {
     return this.BranchesService.create(BranchesDto);
