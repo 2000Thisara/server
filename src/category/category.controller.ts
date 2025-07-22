@@ -9,7 +9,7 @@ export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   // Creates a new category; access restricted to admin users
-  @UseGuards(AdminGuard)
+ //@UseGuards(AdminGuard)
   @Post()
   async create(@Body() createCategoryDto: CreateCategoryDto): Promise<CategoryDocument> {
     return this.categoryService.create(createCategoryDto);
