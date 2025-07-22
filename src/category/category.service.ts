@@ -24,4 +24,12 @@ export class CategoryService {
   async findOne(id: string): Promise<CategoryDocument> {
     return this.categoryModel.findById(id).exec();
   }
+
+  async update(id: string, updateCategoryDto: CreateCategoryDto): Promise<CategoryDocument> {
+    return this.categoryModel.findByIdAndUpdate(id, updateCategoryDto, { new: true }).exec();
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.categoryModel.findByIdAndDelete(id).exec();
+  } 
 }
