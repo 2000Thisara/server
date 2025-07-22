@@ -15,6 +15,12 @@ export class Footer {
   aboutUs: string;
 
   @Prop({ required: true })
+  vision: string;
+
+  @Prop({ required: true })
+  mission: string;
+
+  @Prop({ required: true })
   fbLink: string;
 
   @Prop({ required: true })
