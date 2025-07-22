@@ -10,7 +10,7 @@ import { AdminGuard } from 'src/guards/admin.guard';
 export class SliderController {
   constructor(private readonly sliderService: SliderService) {}
 
-  @UseGuards(AdminGuard)
+  // @UseGuards(AdminGuard)
   @Post('upload')
   async uploadSliderItem(
     @Body() body: { name: string; description: string; image: string } // Now, image is just a string

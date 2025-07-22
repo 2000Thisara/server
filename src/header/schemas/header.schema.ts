@@ -11,6 +11,12 @@ export class Header {
   @Prop({ required: true })
   color: string;
 
+  @Prop({ required: true })
+  secondaryColor: string;
+
+  @Prop({ required: true })
+  ternaryColor: string;
+
   @Prop({ type: [String], default: [] }) // optional array field
   items?: string[];
 
