@@ -1,12 +1,14 @@
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Body, 
-  Param, 
-  Put, 
-  Delete, 
-  UseGuards 
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  UseGuards,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { BranchesService } from './branches.service';
 import { BranchesDto } from './branches.dto';
@@ -19,7 +21,23 @@ export class BranchesController {
 
   @Post()
   async create(@Body() BranchesDto: BranchesDto): Promise<BranchesDocument> {
-    return this.BranchesService.create(BranchesDto);
+    try {
+      return await this.BranchesService.create(BranchesDto);
+    } catch (error) {
+      if (
+        error?.status === 413 ||
+        error?.message?.includes('Payload Too Large')
+      ) {
+        throw new HttpException(
+          'Image size too large. Please upload a smaller file.',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+      throw new HttpException(
+        'Failed to create branch.',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Get()
@@ -35,16 +53,37 @@ export class BranchesController {
   @Put(':id')
   async update(
     @Param('id') id: string,
-    @Body() BranchesDto: BranchesDto
+    @Body() BranchesDto: BranchesDto,
   ): Promise<BranchesDocument> {
-    return this.BranchesService.update(id, BranchesDto);
+    try {
+      return await this.BranchesService.update(id, BranchesDto);
+    } catch (error) {
+      if (
+        error?.status === 413 ||
+        error?.message?.includes('Payload Too Large')
+      ) {
+        throw new HttpException(
+          'Image size too large. Please upload a smaller file.',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+      throw new HttpException(
+        'Failed to update branch.',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<{ message: string }> {
-    await this.BranchesService.remove(id);
-    return { message: 'Branch deleted successfully' };
+    try {
+      await this.BranchesService.remove(id);
+      return { message: 'Branch deleted successfully' };
+    } catch (error) {
+      throw new HttpException(
+        'Failed to delete branch.',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
-
-
 }
