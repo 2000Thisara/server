@@ -9,7 +9,6 @@
 //   const dbPassword = configService.get<string>('MONGODB_PASSWORD');
 //   const dbName = configService.get<string>('MONGODB_DATABASE_NAME');
 
-//   const mongodbUri = `mongodb+srv://thilinajayasingha2003:r0296B5dyVWMGQ4x@elecshop.muwvs.mongodb.net/?retryWrites=true&w=majority&appName=elecshop`;
 
 //   return {
 //     uri: mongodbUri,
